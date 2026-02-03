@@ -4,34 +4,51 @@ using Plotly.Blazor.Traces.SankeyLib;
 public static class APIUtils
 {
     // API parameters
-    public static readonly string HostName = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.WellBoreSelectorHostURL!;
-    public static readonly string HostBasePath = "WellBoreSelector/api/";
-    public static readonly HttpClient HttpClient = APIUtils.SetHttpClient(HostName, HostBasePath);
-    public static readonly Client ClientDWIS = new Client(APIUtils.HttpClient.BaseAddress!.ToString(), APIUtils.HttpClient);
+    public static string HostBasePath => "WellBoreSelector/api/";
+    public static string HostBasePathField => "Field/api/";
+    public static string HostBasePathCluster => "Cluster/api/";
+    public static string HostBasePathWell => "Well/api/";
+    public static string HostBasePathWellBore => "WellBore/api/";
+    public static string HostBasePathUnitConversion => "UnitConversion/api/";
 
-    // Field api
-    public static readonly string HostNameField = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.FieldHostURL!;
-    public static readonly string HostBasePathField = "Field/api/";
-    public static readonly HttpClient HttpClientField = APIUtils.SetHttpClient(HostNameField, HostBasePathField);
-    public static readonly DWIS.ContextualData.WellBoreSelector.ModelShared.Client ClientField = new DWIS.ContextualData.WellBoreSelector.ModelShared.Client(APIUtils.HttpClientField.BaseAddress!.ToString(), APIUtils.HttpClientField);
-    // Cluster api
-    public static readonly string HostNameCluster = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.ClusterHostURL!;
-    public static readonly string HostBasePathCluster = "Cluster/api/";
-    public static readonly HttpClient HttpClientCluster = APIUtils.SetHttpClient(HostNameCluster, HostBasePathCluster);
-    public static readonly DWIS.ContextualData.WellBoreSelector.ModelShared.Client ClientCluster = new DWIS.ContextualData.WellBoreSelector.ModelShared.Client(APIUtils.HttpClientCluster.BaseAddress!.ToString(), APIUtils.HttpClientCluster);
-    // Well api
-    public static readonly string HostNameWell = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.WellHostURL!;
-    public static readonly string HostBasePathWell = "Well/api/";
-    public static readonly HttpClient HttpClientWell = APIUtils.SetHttpClient(HostNameWell, HostBasePathWell);
-    public static readonly DWIS.ContextualData.WellBoreSelector.ModelShared.Client ClientWell = new DWIS.ContextualData.WellBoreSelector.ModelShared.Client(APIUtils.HttpClientWell.BaseAddress!.ToString(), APIUtils.HttpClientWell);
-    // WellBore api
-    public static readonly string HostNameWellBore = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.WellBoreHostURL!;
-    public static readonly string HostBasePathWellBore = "WellBore/api/";
-    public static readonly HttpClient HttpClientWellBore = APIUtils.SetHttpClient(HostNameWellBore, HostBasePathWellBore);
-    public static readonly DWIS.ContextualData.WellBoreSelector.ModelShared.Client ClientWellBore = new DWIS.ContextualData.WellBoreSelector.ModelShared.Client(APIUtils.HttpClientWellBore.BaseAddress!.ToString(), APIUtils.HttpClientWellBore);
+    private static readonly Lazy<HttpClient> _httpClient = new(() =>
+        SetHttpClient(GetRequiredUrl(nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.WellBoreSelectorHostURL)), HostBasePath));
+    private static readonly Lazy<Client> _clientDwis = new(() =>
+        new Client(HttpClient.BaseAddress!.ToString(), HttpClient));
 
-    public static readonly string HostNameUnitConversion = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.UnitConversionHostURL!;
-    public static readonly string HostBasePathUnitConversion = "UnitConversion/api/";
+    private static readonly Lazy<HttpClient> _httpClientField = new(() =>
+        SetHttpClient(GetRequiredUrl(nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.FieldHostURL)), HostBasePathField));
+    private static readonly Lazy<DWIS.ContextualData.WellBoreSelector.ModelShared.Client> _clientField = new(() =>
+        new DWIS.ContextualData.WellBoreSelector.ModelShared.Client(HttpClientField.BaseAddress!.ToString(), HttpClientField));
+
+    private static readonly Lazy<HttpClient> _httpClientCluster = new(() =>
+        SetHttpClient(GetRequiredUrl(nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.ClusterHostURL)), HostBasePathCluster));
+    private static readonly Lazy<DWIS.ContextualData.WellBoreSelector.ModelShared.Client> _clientCluster = new(() =>
+        new DWIS.ContextualData.WellBoreSelector.ModelShared.Client(HttpClientCluster.BaseAddress!.ToString(), HttpClientCluster));
+
+    private static readonly Lazy<HttpClient> _httpClientWell = new(() =>
+        SetHttpClient(GetRequiredUrl(nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.WellHostURL)), HostBasePathWell));
+    private static readonly Lazy<DWIS.ContextualData.WellBoreSelector.ModelShared.Client> _clientWell = new(() =>
+        new DWIS.ContextualData.WellBoreSelector.ModelShared.Client(HttpClientWell.BaseAddress!.ToString(), HttpClientWell));
+
+    private static readonly Lazy<HttpClient> _httpClientWellBore = new(() =>
+        SetHttpClient(GetRequiredUrl(nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.WellBoreHostURL)), HostBasePathWellBore));
+    private static readonly Lazy<DWIS.ContextualData.WellBoreSelector.ModelShared.Client> _clientWellBore = new(() =>
+        new DWIS.ContextualData.WellBoreSelector.ModelShared.Client(HttpClientWellBore.BaseAddress!.ToString(), HttpClientWellBore));
+
+    public static HttpClient HttpClient => _httpClient.Value;
+    public static Client ClientDWIS => _clientDwis.Value;
+    public static HttpClient HttpClientField => _httpClientField.Value;
+    public static DWIS.ContextualData.WellBoreSelector.ModelShared.Client ClientField => _clientField.Value;
+    public static HttpClient HttpClientCluster => _httpClientCluster.Value;
+    public static DWIS.ContextualData.WellBoreSelector.ModelShared.Client ClientCluster => _clientCluster.Value;
+    public static HttpClient HttpClientWell => _httpClientWell.Value;
+    public static DWIS.ContextualData.WellBoreSelector.ModelShared.Client ClientWell => _clientWell.Value;
+    public static HttpClient HttpClientWellBore => _httpClientWellBore.Value;
+    public static DWIS.ContextualData.WellBoreSelector.ModelShared.Client ClientWellBore => _clientWellBore.Value;
+
+    public static string HostNameUnitConversion =>
+        GetRequiredUrl(nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.UnitConversionHostURL));
 
     // API utility methods
     public static HttpClient SetHttpClient(string host, string microServiceUri)
@@ -45,5 +62,27 @@ public static class APIUtils
         httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         return httpClient;
+    }
+
+    private static string GetRequiredUrl(string configProperty)
+    {
+        var config = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance;
+        var value = configProperty switch
+        {
+            nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.WellBoreSelectorHostURL) => config.WellBoreSelectorHostURL,
+            nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.UnitConversionHostURL) => config.UnitConversionHostURL,
+            nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.WellBoreHostURL) => config.WellBoreHostURL,
+            nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.WellHostURL) => config.WellHostURL,
+            nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.FieldHostURL) => config.FieldHostURL,
+            nameof(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.ClusterHostURL) => config.ClusterHostURL,
+            _ => null
+        };
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new InvalidOperationException($"Missing required configuration value '{configProperty}' in Config.json.");
+        }
+
+        return value;
     }
 }

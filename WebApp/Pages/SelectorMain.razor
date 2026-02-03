@@ -148,9 +148,9 @@
         {
             logger?.LogError(ex.ToString());
         }
-        logger?.LogInformation("Trying to load microservices through client: " + APIUtils.HttpClientField);
         try
         {
+            logger?.LogInformation("Trying to load microservices through client: " + APIUtils.HttpClientField.BaseAddress);
             // get guid and name from external microservices
             ICollection<DWIS.ContextualData.WellBoreSelector.ModelShared.Field> fields = await APIUtils.ClientField.GetAllFieldAsync();
             foreach (DWIS.ContextualData.WellBoreSelector.ModelShared.Field field in fields)
@@ -285,7 +285,7 @@
                 value = _selectedWellBore.MetaInfo.ID.ToString();
             }
             DWISConnector.Instance.SendValue(_placeHolder, value);
-    }
+        }
         await Task.Yield();
     }
 
