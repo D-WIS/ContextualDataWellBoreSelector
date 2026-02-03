@@ -25,4 +25,5 @@ FROM base AS final
 WORKDIR /app
 VOLUME /home
 COPY --from=publish /app/publish .
+COPY --from=build /app/config /app/config
 ENTRYPOINT ["dotnet", "WebApp.dll"]
