@@ -26,3 +26,4 @@ Run the following command to create a new docker container:
 ```docker
 docker run -dit --name WellBoreSelector -p 5001:8080 -p 5002:443 -v c:\Volumes\DWISContextualDataWellBoreSelector:/home digiwells/dwiscontextualdatawellboreselectorwebapp:stable
 ```
+The web application is then accessible here: http://localhost:5001/WellBoreSelector/webapp/Selector

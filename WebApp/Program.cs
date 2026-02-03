@@ -1,12 +1,12 @@
-using DWIS.Client.ReferenceImplementation;
+﻿using DWIS.Client.ReferenceImplementation;
 using DWIS.Client.ReferenceImplementation.OPCFoundation;
 using DWIS.ContextualData.WellBoreSelector.WebApp;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MudBlazor;
 using MudBlazor.Services;
 using Plotly.Blazor.Traces.SankeyLib;
 using WebApp;
-
-DWISConnector.Instance.ConnectToBlackboard(null);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +26,9 @@ builder.Services.AddMudServices(config =>
 });
 
 var app = builder.Build();
+
+var opcLogger = app.Services.GetRequiredService<ILogger<DWISClientOPCF>>();
+DWISConnector.Instance.ConnectToBlackboard(opcLogger);
 
 app.UseForwardedHeaders();
 // This needs to match with what is defined in "charts/<helm-chart-name>/templates/values.yaml ingress.Path
