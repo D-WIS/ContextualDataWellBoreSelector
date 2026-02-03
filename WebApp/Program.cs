@@ -33,18 +33,6 @@ app.UsePathBase("/WellBoreSelector/webapp");
 
 DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.LoadFromHome(builder.Environment.ContentRootPath);
 var appConfig = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance;
-if (!String.IsNullOrEmpty(builder.Configuration["WellBoreSelectorHostURL"]))
-    appConfig.WellBoreSelectorHostURL = builder.Configuration["WellBoreSelectorHostURL"];
-if (!String.IsNullOrEmpty(builder.Configuration["UnitConversionHostURL"]))
-    appConfig.UnitConversionHostURL = builder.Configuration["UnitConversionHostURL"];
-if (!String.IsNullOrEmpty(builder.Configuration["FieldHostURL"]))
-    appConfig.FieldHostURL = builder.Configuration["FieldHostURL"];
-if (!String.IsNullOrEmpty(builder.Configuration["ClusterHostURL"]))
-    appConfig.ClusterHostURL = builder.Configuration["ClusterHostURL"];
-if (!String.IsNullOrEmpty(builder.Configuration["WellHostURL"]))
-    appConfig.WellHostURL = builder.Configuration["WellHostURL"];
-if (!String.IsNullOrEmpty(builder.Configuration["WellBoreHostURL"]))
-    appConfig.WellBoreHostURL = builder.Configuration["WellBoreHostURL"];
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

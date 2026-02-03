@@ -24,5 +24,5 @@ docker run  -dit --name blackboard -P -p 48030:48030/tcp --hostname localhost  d
 ```
 Run the following command to create a new docker container:
 ```docker
-docker run -dit --name WellBoreSelector -v c:\Volumes\DWISContextualDataWellBoreSelector:/home digiwells/dwiscontextualdatawellboreselectorwebapp:stable
+docker run -dit --name WellBoreSelector -p 5001:8080 -p 5002:443 -v c:\Volumes\DWISContextualDataWellBoreSelector:/home digiwells/dwiscontextualdatawellboreselectorwebapp:stable
 ```

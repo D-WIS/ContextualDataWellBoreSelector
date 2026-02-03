@@ -1,9 +1,9 @@
 {
-  "WellBoreSelectorHostURL": null,
-  "UnitConversionHostURL": null,
-  "WellBoreHostURL": null,
-  "WellHostURL": null,
-  "FieldHostURL": null,
-  "ClusterHostURL": null,
+  "WellBoreSelectorHostURL": "https://dev.digiwells.no/",
+  "UnitConversionHostURL": "https://dev.digiwells.no/",
+  "WellBoreHostURL": "https://dev.digiwells.no/",
+  "WellHostURL": "https://dev.digiwells.no/",
+  "FieldHostURL": "https://dev.digiwells.no/",
+  "ClusterHostURL": "https://dev.digiwells.no/",
   "GeneralBlackboard": "opc.tcp://localhost:48030"
 }
