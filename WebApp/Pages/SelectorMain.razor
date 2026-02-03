@@ -1,0 +1,322 @@
+﻿@page "/Selector"
+@inject NavigationManager Navigation
+@inject ILogger<SelectorMain> logger
+@inject ISnackbar Snackbar
+
+<MudPaper Class="py-2 px-4">
+    <MudText Typo="Typo.h6">Wellbore architecture</MudText>
+    <MudDivider Class="mb-2" />
+    <MudGrid Class="my-2">
+        @if (Fields != null)
+        {
+            <MudItem xs="2">
+                <MudSelect T="DWIS.ContextualData.WellBoreSelector.ModelShared.Field"
+                           Label="Field"
+                           Value="@_selectedField"
+                           ValueChanged="@(EventCallback.Factory.Create<DWIS.ContextualData.WellBoreSelector.ModelShared.Field?>(this, OnFieldChanged))"
+                           Dense="true"
+                           ToStringFunc="@(s => s?.Name)">
+                    @foreach (var fieldKPV in Fields)
+                    {
+                        if (fieldKPV.Key != Guid.Empty && fieldKPV.Value != null && !string.IsNullOrEmpty(fieldKPV.Value.Name))
+                        {
+                            <MudSelectItem Value="@fieldKPV.Value">@fieldKPV.Value.Name</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+            </MudItem>
+        }
+        else
+        {
+            <MudItem xs="2" />
+        }
+        @if (Clusters != null && _selectedField != null)
+        {
+            <MudItem xs="2">
+                <MudSelect T="Cluster"
+                           Label="Cluster"
+                           Value="@_selectedCluster"
+                           ValueChanged="@(EventCallback.Factory.Create<Cluster?>(this, OnClusterChanged))"
+                           Dense="true"
+                           ToStringFunc="@(s => s?.Name)">
+                    @foreach (var clusterKVP in Clusters.Where(x => (x.Value != null && x.Value.FieldID != null && _selectedField != null && _selectedField.MetaInfo != null && _selectedField.MetaInfo.ID == x.Value.FieldID && !x.Value.IsSingleWell)))
+                    {
+                        <MudSelectItem Value="@clusterKVP.Value">@clusterKVP.Value.Name</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+        }
+        else
+        {
+            <MudItem xs="2" />
+        }
+        @if (Wells != null)
+        {
+            <MudItem xs="2">
+                <MudSelect T="Well"
+                           Label="Well"
+                           Value="@_selectedWell"
+                           ValueChanged="@(EventCallback.Factory.Create<Well?>(this, OnWellChanged))"
+                           Dense="true"
+                           ToStringFunc="@(s => s?.Name)">
+                    @foreach (var wellKVP in Wells.Where(x => (x.Value != null && ((x.Value.ClusterID != null && _selectedCluster != null && _selectedCluster.MetaInfo != null && _selectedCluster.MetaInfo.ID == x.Value.ClusterID && !x.Value.IsSingleWell) || (x.Value.IsSingleWell)))))
+                    {
+                        <MudSelectItem Value="@wellKVP.Value">@wellKVP.Value.Name</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+        }
+        else
+        {
+            <MudItem xs="2" />
+        }
+        @if (WellBores != null && _selectedWell != null)
+        {
+            <MudItem xs="2">
+                <MudSelect T="WellBore"
+                           Label="Wellbore"
+                           Value="@_selectedWellBore"
+                           ValueChanged="@(EventCallback.Factory.Create<WellBore?>(this, OnWellBoreChanged))"
+                           Dense="true"
+                           ToStringFunc="@(s => s?.Name)">
+                    @foreach (var wellBoreKVP in WellBores.Where(x => (x.Value != null && x.Value.WellID != null && _selectedWell != null && _selectedWell.MetaInfo != null && _selectedWell.MetaInfo.ID == x.Value.WellID)))
+                    {
+                        <MudSelectItem Value="@wellBoreKVP.Value">@wellBoreKVP.Value.Name</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+        }
+        else
+        {
+            <MudItem xs="2" />
+        }
+    </MudGrid>
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               Disabled="@(_selectedWellBore is null)"
+               OnClick="SelectCurrentWellBore">
+        Select wellbore
+    </MudButton>
+</MudPaper>
+
+@code {
+    [Inject] private IDialogService? DialogService { get; set; }
+
+    private DWIS.ContextualData.WellBoreSelector.ModelShared.Field? _selectedField = null;
+    private Cluster? _selectedCluster = null;
+    private Well? _selectedWell = null;
+    private WellBore? _selectedWellBore = null;
+    private SelectedWellboreData _selectedWellboreData = new SelectedWellboreData();
+
+    private QueryResult? _placeHolder = null;
+
+    public Dictionary<Guid, DWIS.ContextualData.WellBoreSelector.ModelShared.Field>? Fields { get; set; } = null;
+    [Parameter]
+    public Dictionary<Guid, Cluster>? Clusters { get; set; } = null;
+    [Parameter]
+    public Dictionary<Guid, Well>? Wells { get; set; } = null;
+    [Parameter]
+    public Dictionary<Guid, WellBore>? WellBores { get; set; } = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await InitializeAsync();
+        await ManageSignal();
+        await InvokeAsync(() => { StateHasChanged(); });
+    }
+    private async Task InitializeAsync()
+    {
+        try
+        {
+            _selectedWellboreData ??= new SelectedWellboreData();
+            _selectedWellboreData.WellBoreID ??= new GuidProperty();
+            var assembly = typeof(GuidProperty).Assembly;
+            var manifest = GeneratorSparQLManifestFile.GetManifestFile(assembly, typeof(SelectedWellboreData).FullName, "WellBoreID", "DWIS.ContextualData", "DWIS", "SelectedWellBore");
+            if (manifest is not null)
+            {
+                _selectedWellboreData.WellBoreID.Manifest = manifest;
+            }
+            var queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, typeof(SelectedWellboreData).FullName, "WellBoreID");
+            if (queries is not null && queries.Count >= 1)
+            {
+                var kvp = queries.First<KeyValuePair<string, QuerySpecification>>();
+                _selectedWellboreData.WellBoreID.SparQLQuery = kvp.Value.SparQL;
+                _selectedWellboreData.WellBoreID.SparQLVariables = kvp.Value.Variables;
+            }
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError(ex.ToString());
+        }
+        logger?.LogInformation("Trying to load microservices through client: " + APIUtils.HttpClientField);
+        try
+        {
+            // get guid and name from external microservices
+            ICollection<DWIS.ContextualData.WellBoreSelector.ModelShared.Field> fields = await APIUtils.ClientField.GetAllFieldAsync();
+            foreach (DWIS.ContextualData.WellBoreSelector.ModelShared.Field field in fields)
+            {
+                Fields ??= new Dictionary<Guid, DWIS.ContextualData.WellBoreSelector.ModelShared.Field>();
+                if (!Fields.ContainsKey(field.MetaInfo.ID))
+                {
+                    Fields.Add(field.MetaInfo.ID, field);
+                }
+            }
+            ICollection<Cluster> clusters = await APIUtils.ClientCluster.GetAllClusterAsync();
+            foreach (Cluster cluster in clusters)
+            {
+                Clusters ??= new Dictionary<Guid, Cluster>();
+                if (!Clusters.ContainsKey(cluster.MetaInfo.ID))
+                {
+                    Clusters.Add(cluster.MetaInfo.ID, cluster);
+                }
+            }
+            ICollection<Well> wells = await APIUtils.ClientWell.GetAllWellAsync();
+            foreach (Well well in wells)
+            {
+                Wells ??= new Dictionary<Guid, Well>();
+                if (!Wells.ContainsKey(well.MetaInfo.ID))
+                {
+                    Wells.Add(well.MetaInfo.ID, well);
+                }
+            }
+            ICollection<WellBore> wellBores = await APIUtils.ClientWellBore.GetAllWellBoreAsync();
+            foreach (WellBore wellBore in wellBores)
+            {
+                WellBores ??= new Dictionary<Guid, WellBore>();
+                if (!WellBores.ContainsKey(wellBore.MetaInfo.ID))
+                {
+                    WellBores.Add(wellBore.MetaInfo.ID, wellBore);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError(ex, "Impossible to load microservices");
+        }
+    }
+
+    protected bool RegisterToBlackboard(SemanticInfo? semanticInfo, IOPCUADWISClient? DWISClient, ref QueryResult? placeHolder)
+    {
+        bool ok = false;
+        if (DWISClient != null && semanticInfo != null && semanticInfo.Manifest != null && !string.IsNullOrEmpty(semanticInfo.SparQLQuery) && semanticInfo.SparQLVariables != null && semanticInfo.SparQLVariables.Count > 0)
+        {
+            ManifestFile manifestFile = semanticInfo.Manifest;
+            string sparQLQuery = semanticInfo.SparQLQuery;
+            List<string>? variables = semanticInfo.SparQLVariables.ToList<string>();
+            QueryResult? res = null;
+            var result = DWISClient.GetQueryResult(sparQLQuery);
+            if (result != null && result.Results != null && result.Results.Count > 0)
+            {
+                res = result;
+            }
+            // if we couldn't find any answer then the manifest must be injected
+            if (res == null)
+            {
+                if (manifestFile != null)
+                {
+                    string json = System.Text.Json.JsonSerializer.Serialize(manifestFile);
+                    if (!string.IsNullOrEmpty(json))
+                    {
+                        ManifestFile? manifest = System.Text.Json.JsonSerializer.Deserialize<ManifestFile>(json);
+                        if (manifest != null)
+                        {
+                            ManifestInjectionResult? r = DWISClient.Inject(manifest);
+                            if (r != null && r.Success)
+                            {
+                                if (r.ProvidedVariables != null && r.ProvidedVariables.Count > 0)
+                                {
+                                    placeHolder = new QueryResult();
+                                    QueryResultRow row = new QueryResultRow();
+                                    List<NodeIdentifier> items = new List<NodeIdentifier>();
+                                    placeHolder.VariablesHeader = variables;
+                                    row.Items = items;
+                                    foreach (var kvp in r.ProvidedVariables)
+                                    {
+                                        DWISClient.GetNameSpace(kvp.InjectedID.NameSpaceIndex, out string ns);
+                                        items.Add(new NodeIdentifier() { ID = kvp.InjectedID.ID, NameSpace = ns });
+                                    }
+                                    placeHolder.Add(row);
+                                    ok = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // a manifest has already been injected.
+                placeHolder = res;
+                ok = true;
+            }
+        }
+        return ok;
+    }
+
+    protected async Task ManageSignal()
+    {
+        try
+        {
+            if (DWISConnector.Instance.DWISClient is not null && DWISConnector.Instance.DWISClient.Connected)
+            {
+                QueryResult? placeHolder = null;
+                if (RegisterToBlackboard(_selectedWellboreData.WellBoreID, DWISConnector.Instance.DWISClient, ref placeHolder) && placeHolder is not null)
+                {
+                    _placeHolder = placeHolder;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError(ex.ToString());
+        }
+        await Task.Yield();
+    }
+
+    private async Task SelectCurrentWellBore()
+    {
+        if (DWISConnector.Instance.DWISClient is not null &&
+            DWISConnector.Instance.DWISClient.Connected &&
+            _placeHolder is not null)
+        {
+            string? value = null;
+            if (_selectedWellBore is not null && _selectedWellBore.MetaInfo is not null)
+            {
+                value = _selectedWellBore.MetaInfo.ID.ToString();
+            }
+            DWISConnector.Instance.SendValue(_placeHolder, value);
+    }
+        await Task.Yield();
+    }
+
+    private Task OnFieldChanged(DWIS.ContextualData.WellBoreSelector.ModelShared.Field? field)
+    {
+        _selectedField = field;
+        _selectedCluster = null;
+        _selectedWell = null;
+        _selectedWellBore = null;
+        return Task.CompletedTask;
+    }
+
+    private Task OnClusterChanged(Cluster? cluster)
+    {
+        _selectedCluster = cluster;
+        _selectedWell = null;
+        _selectedWellBore = null;
+        return Task.CompletedTask;
+    }
+
+    private Task OnWellChanged(Well? well)
+    {
+        _selectedWell = well;
+        _selectedWellBore = null;
+        return Task.CompletedTask;
+    }
+
+    private Task OnWellBoreChanged(WellBore? wellBore)
+    {
+        _selectedWellBore = wellBore;
+        return Task.CompletedTask;
+    }
+
+}

@@ -1,0 +1,9 @@
+{
+  "WellBoreSelectorHostURL": null,
+  "UnitConversionHostURL": null,
+  "WellBoreHostURL": null,
+  "WellHostURL": null,
+  "FieldHostURL": null,
+  "ClusterHostURL": null,
+  "GeneralBlackboard": "opc.tcp://localhost:48030"
+}
