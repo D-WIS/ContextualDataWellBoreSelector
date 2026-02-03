@@ -263,6 +263,133 @@
                 if (RegisterToBlackboard(_selectedWellboreData.WellBoreID, DWISConnector.Instance.DWISClient, ref placeHolder) && placeHolder is not null)
                 {
                     _placeHolder = placeHolder;
+                    if (placeHolder.Count > 0 && placeHolder[0].Count > 0)
+                    {
+                        (string nameSpace, string id)[] nodes = new (string nameSpace, string id)[1];
+                        nodes[0].nameSpace = placeHolder[0][0].NameSpace;
+                        nodes[0].id = placeHolder[0][0].ID;
+                        if (DWISConnector.Instance.DWISClient.ReadAnyVariables(out object[] results, nodes) && results is not null && results.Length > 0)
+                        {
+                            if (results[0] is string sval)
+                            {
+                                if (Guid.TryParse(sval, out Guid guid))
+                                {
+                                    if (WellBores is not null && WellBores.ContainsKey(guid))
+                                    {
+                                        _selectedWellBore = WellBores[guid];
+                                        if (_selectedWellBore is not null && _selectedWellBore.WellID is not null)
+                                        {
+                                            guid = _selectedWellBore.WellID.Value;
+                                            if (Wells is not null && Wells.ContainsKey(guid))
+                                            {
+                                                _selectedWell = Wells[guid];
+                                                if (_selectedWell is not null && _selectedWell.ClusterID is not null)
+                                                {
+                                                    guid = _selectedWell.ClusterID.Value;
+                                                    if (Clusters is not null && Clusters.ContainsKey(guid))
+                                                    {
+                                                        _selectedCluster = Clusters[guid];
+                                                        if (_selectedCluster is not null && _selectedCluster.FieldID is not null)
+                                                        {
+                                                            guid = _selectedCluster.FieldID.Value;
+                                                            if (Fields is not null && Fields.ContainsKey(guid))
+                                                            {
+                                                                _selectedField = Fields[guid];
+                                                                if (_selectedField is null)
+                                                                {
+                                                                    _selectedField = null;
+                                                                    _selectedCluster = null;
+                                                                    _selectedWell = null;
+                                                                    _selectedWellBore = null;
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                _selectedField = null;
+                                                                _selectedCluster = null;
+                                                                _selectedWell = null;
+                                                                _selectedWellBore = null;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            _selectedField = null;
+                                                            _selectedCluster = null;
+                                                            _selectedWell = null;
+                                                            _selectedWellBore = null;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        _selectedField = null;
+                                                        _selectedCluster = null;
+                                                        _selectedWell = null;
+                                                        _selectedWellBore = null;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    _selectedField = null;
+                                                    _selectedCluster = null;
+                                                    _selectedWell = null;
+                                                    _selectedWellBore = null;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                _selectedField = null;
+                                                _selectedCluster = null;
+                                                _selectedWell = null;
+                                                _selectedWellBore = null;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            _selectedField = null;
+                                            _selectedCluster = null;
+                                            _selectedWell = null;
+                                            _selectedWellBore = null;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        _selectedField = null;
+                                        _selectedCluster = null;
+                                        _selectedWell = null;
+                                        _selectedWellBore = null;
+                                    }
+                                }
+                                else
+                                {
+                                    _selectedField = null;
+                                    _selectedCluster = null;
+                                    _selectedWell = null;
+                                    _selectedWellBore = null;
+                                }
+                            }
+                            else
+                            {
+                                _selectedField = null;
+                                _selectedCluster = null;
+                                _selectedWell = null;
+                                _selectedWellBore = null;
+                            }
+                        }
+                        else
+                        {
+                            _selectedField = null;
+                            _selectedCluster = null;
+                            _selectedWell = null;
+                            _selectedWellBore = null;
+                        }
+                    }
+                    else
+                    {
+                        _selectedField = null;
+                        _selectedCluster = null;
+                        _selectedWell = null;
+                        _selectedWellBore = null;
+                    }
                 }
             }
         }
