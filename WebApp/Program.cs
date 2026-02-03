@@ -27,15 +27,14 @@ builder.Services.AddMudServices(config =>
 
 var app = builder.Build();
 
+Configuration.LoadFromHome(builder.Environment.ContentRootPath);
+
 var opcLogger = app.Services.GetRequiredService<ILogger<DWISClientOPCF>>();
 DWISConnector.Instance.ConnectToBlackboard(opcLogger);
 
 app.UseForwardedHeaders();
 // This needs to match with what is defined in "charts/<helm-chart-name>/templates/values.yaml ingress.Path
 app.UsePathBase("/WellBoreSelector/webapp");
-
-DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.LoadFromHome(builder.Environment.ContentRootPath);
-var appConfig = DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance;
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
