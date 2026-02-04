@@ -129,19 +129,19 @@
         try
         {
             _selectedWellboreData ??= new SelectedWellboreData();
-            _selectedWellboreData.WellBoreID ??= new GuidProperty();
-            var assembly = typeof(GuidProperty).Assembly;
-            var manifest = GeneratorSparQLManifestFile.GetManifestFile(assembly, typeof(SelectedWellboreData).FullName, "WellBoreID", "DWIS.ContextualData", "DWIS", "SelectedWellBore");
+            _selectedWellboreData.WellBore ??= new WellBoreProperty();
+            var assembly = typeof(WellBoreProperty).Assembly;
+            var manifest = GeneratorSparQLManifestFile.GetManifestFile(assembly, typeof(SelectedWellboreData).FullName, "WellBore", "DWIS.ContextualData", "DWIS", "SelectedWellBore");
             if (manifest is not null)
             {
-                _selectedWellboreData.WellBoreID.Manifest = manifest;
+                _selectedWellboreData.WellBore.Manifest = manifest;
             }
-            var queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, typeof(SelectedWellboreData).FullName, "WellBoreID");
+            var queries = GeneratorSparQLManifestFile.GetSparQLQueries(assembly, typeof(SelectedWellboreData).FullName, "WellBore");
             if (queries is not null && queries.Count >= 1)
             {
                 var kvp = queries.First<KeyValuePair<string, QuerySpecification>>();
-                _selectedWellboreData.WellBoreID.SparQLQuery = kvp.Value.SparQL;
-                _selectedWellboreData.WellBoreID.SparQLVariables = kvp.Value.Variables;
+                _selectedWellboreData.WellBore.SparQLQuery = kvp.Value.SparQL;
+                _selectedWellboreData.WellBore.SparQLVariables = kvp.Value.Variables;
             }
         }
         catch (Exception ex)
@@ -260,7 +260,7 @@
             if (DWISConnector.Instance.DWISClient is not null && DWISConnector.Instance.DWISClient.Connected)
             {
                 QueryResult? placeHolder = null;
-                if (RegisterToBlackboard(_selectedWellboreData.WellBoreID, DWISConnector.Instance.DWISClient, ref placeHolder) && placeHolder is not null)
+                if (RegisterToBlackboard(_selectedWellboreData.WellBore, DWISConnector.Instance.DWISClient, ref placeHolder) && placeHolder is not null)
                 {
                     _placeHolder = placeHolder;
                     if (placeHolder.Count > 0 && placeHolder[0].Count > 0)
@@ -272,8 +272,18 @@
                         {
                             if (results[0] is string sval)
                             {
-                                if (Guid.TryParse(sval, out Guid guid))
+                                WellBore? wellBore = null;
+                                try
                                 {
+                                    wellBore = JsonSerializer.Deserialize<WellBore>(sval);
+                                }
+                                catch (Exception e)
+                                {
+                                    logger?.LogError(e.ToString());
+                                }
+                                if (wellBore is not null && wellBore.MetaInfo is not null)
+                                {
+                                    Guid guid = wellBore.MetaInfo.ID;
                                     if (WellBores is not null && WellBores.ContainsKey(guid))
                                     {
                                         _selectedWellBore = WellBores[guid];
@@ -406,12 +416,12 @@
             DWISConnector.Instance.DWISClient.Connected &&
             _placeHolder is not null)
         {
-            string? value = null;
-            if (_selectedWellBore is not null && _selectedWellBore.MetaInfo is not null)
+            string? json = null;
+            if (_selectedWellBore is not null)
             {
-                value = _selectedWellBore.MetaInfo.ID.ToString();
+                json = JsonSerializer.Serialize(_selectedWellBore);
             }
-            DWISConnector.Instance.SendValue(_placeHolder, value);
+            DWISConnector.Instance.SendValue(_placeHolder, json);
         }
         await Task.Yield();
     }

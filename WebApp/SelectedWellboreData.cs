@@ -1,12 +1,13 @@
 ﻿using DWIS.RigOS.Common.Model;
 using DWIS.Vocabulary.Schemas;
 using OSDC.DotnetLibraries.Drilling.DrillingProperties;
+using DWIS.ContextualData.WellBoreSelector.ModelShared;
 
 namespace WebApp
 {
-    public class GuidProperty : SemanticInfo
+    public class WellBoreProperty : SemanticInfo
     {
-        public Guid? ID { get; set; } = null;
+        public WellBore? WellBore { get; set; } = null;
     }
     public class SelectedWellboreData
     {
@@ -15,9 +16,9 @@ namespace WebApp
         [SemanticStringVariable("SelectedWellboreSignal")]
         [SemanticFact("SelectedWellboreSignal", Nouns.Enum.DynamicDrillingSignal)]
         [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.DrillingDataPoint)]
-        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.WellBoreData)]
-        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.OperationalPlan)]
-        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.StringDataType)]
+        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.WellBoreData)] // to be replaced by Nouns.Enum.WellBore
+        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.OperationalPlan)] // to be removed when replaced by Nouns.Enum.WellBore
+        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.JSonDataType)]
         [SemanticFact("SelectedWellboreSignal#01", Verbs.Enum.HasDynamicValue, "SelectedWellboreSignal")]
         [SemanticFact("Current#01", Nouns.Enum.Current)]
         [SemanticFact("SelectedWellboreSignal#01", Verbs.Enum.IsCharacterizedBy, "Current#01")]
@@ -27,6 +28,6 @@ namespace WebApp
         [SemanticFact("SelectedWellboreSignal#01", Verbs.Enum.IsProvidedTo, "DataProvider#01")]
         [SemanticFact("contextualDataBuilder#01", Nouns.Enum.DWISContextualDataBuilder)]
         [SemanticFact("SelectedWellboreSignal#01", Verbs.Enum.IsProvidedBy, "contextualDataBuilder#01")]
-        public GuidProperty WellBoreID { get; set; } = new GuidProperty();
+        public WellBoreProperty WellBore { get; set; } = new WellBoreProperty();
     }
 }
