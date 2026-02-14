@@ -27,12 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DWIS.Client.ReferenceImplementation.OPCFoundation" Version="2.2.42" />
-    <PackageReference Include="DWIS.RigOS.Common.Model" Version="1.0.5-build.423" />
+    <PackageReference Include="DWIS.Client.ReferenceImplementation.OPCFoundation" Version="2.2.44" />
+    <PackageReference Include="DWIS.RigOS.Common.Model" Version="1.0.5-build.431" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-    <PackageReference Include="MudBlazor" Version="8.7.0" />
     <PackageReference Include="OSDC.DotnetLibraries.General.DataManagement" Version="2.1.0" />
-    <PackageReference Include="OSDC.UnitConversion.DrillingRazorMudComponents" Version="3.3.21" />
+    <PackageReference Include="OSDC.UnitConversion.DrillingRazorMudComponents" Version="3.3.43" />
     <PackageReference Include="Plotly.Blazor" Version="6.0.2" />
   </ItemGroup>
 

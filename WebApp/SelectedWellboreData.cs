@@ -16,8 +16,7 @@ namespace WebApp
         [SemanticStringVariable("SelectedWellboreSignal")]
         [SemanticFact("SelectedWellboreSignal", Nouns.Enum.DynamicDrillingSignal)]
         [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.DrillingDataPoint)]
-        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.WellBoreData)] // to be replaced by Nouns.Enum.WellBore
-        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.OperationalPlan)] // to be removed when replaced by Nouns.Enum.WellBore
+        [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.WellBore)]
         [SemanticFact("SelectedWellboreSignal#01", Nouns.Enum.JSonDataType)]
         [SemanticFact("SelectedWellboreSignal#01", Verbs.Enum.HasDynamicValue, "SelectedWellboreSignal")]
         [SemanticFact("Current#01", Nouns.Enum.Current)]
