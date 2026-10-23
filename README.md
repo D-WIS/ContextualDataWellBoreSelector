@@ -30,3 +30,9 @@ Manually dispatch docker-build-push-interpreter.yml to build/test the solution a
 digiwells/dwiscontextualdatawellboreselectorwebapp with stable and immutable sha-<commit> tags. Build from the repository root;
 the Docker restore layer includes the referenced shared model project. Mount a persistent
 /home directory containing the existing configuration; do not overwrite it during upgrades.
+
+## OSDC package versions
+DrillingProperties 10.2.11 is supplied by Common Model. General.Statistics is explicitly pinned
+to 3.3.6, which supplies General.Math 1.4.2 transitively; no direct Math reference is needed.
+The selector uses General.DataManagement 2.2.0 and DrillingRazorMudComponents 3.4.9,
+which resolves the Conversion, DrillingEngineering and UnitSystem packages at 3.4.5.

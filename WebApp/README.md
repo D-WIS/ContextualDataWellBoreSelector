@@ -31,3 +31,9 @@ The web application is then accessible here: http://localhost:5001/WellBoreSelec
 ## DWIS package versions
 This host uses DWIS.RigOS.Common.Model 1.0.7 and explicitly pins
 DWIS.Client.ReferenceImplementation.OPCFoundation 2.2.54. Restore packages from nuget.org.
+
+## OSDC package versions
+DrillingProperties 10.2.11 is supplied by Common Model. General.Statistics is explicitly pinned
+to 3.3.6, which supplies General.Math 1.4.2 transitively; no direct Math reference is needed.
+The selector uses General.DataManagement 2.2.0 and DrillingRazorMudComponents 3.4.9,
+which resolves the Conversion, DrillingEngineering and UnitSystem packages at 3.4.5.
