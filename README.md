@@ -20,3 +20,13 @@ the selected wellbore to the DWIS Blackboard.
 - `WebApp` references the `ModelSharedOut` project directly.
 - `ModelSharedOut` supplies the generated DTOs and API client types used by the WebApp.
 - This ensures the WebApp stays aligned with schema changes without duplicating model definitions.
+
+## DWIS package versions
+This host uses DWIS.RigOS.Common.Model 1.0.7 and explicitly pins
+DWIS.Client.ReferenceImplementation.OPCFoundation 2.2.54. Restore packages from nuget.org.
+
+## Docker publication
+Manually dispatch docker-build-push-interpreter.yml to build/test the solution and publish
+digiwells/dwiscontextualdatawellboreselectorwebapp with stable and immutable sha-<commit> tags. Build from the repository root;
+the Docker restore layer includes the referenced shared model project. Mount a persistent
+/home directory containing the existing configuration; do not overwrite it during upgrades.

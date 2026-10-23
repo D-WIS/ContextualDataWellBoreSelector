@@ -27,3 +27,7 @@ Run the following command to create a new docker container:
 docker run -dit --name WellBoreSelector -p 5001:8080 -p 5002:443 -v c:\Volumes\DWISContextualDataWellBoreSelector:/home digiwells/dwiscontextualdatawellboreselectorwebapp:stable
 ```
 The web application is then accessible here: http://localhost:5001/WellBoreSelector/webapp/Selector
+
+## DWIS package versions
+This host uses DWIS.RigOS.Common.Model 1.0.7 and explicitly pins
+DWIS.Client.ReferenceImplementation.OPCFoundation 2.2.54. Restore packages from nuget.org.

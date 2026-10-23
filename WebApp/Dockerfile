@@ -12,6 +12,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["WebApp/config/Quickstarts.ReferenceClient.Config.xml", "/app/config/"]
 COPY ["WebApp/WebApp.csproj", "WebApp/"]
+COPY ["ModelSharedOut/ModelSharedOut.csproj", "ModelSharedOut/"]
 RUN dotnet restore "WebApp/WebApp.csproj"
 
 COPY . .
