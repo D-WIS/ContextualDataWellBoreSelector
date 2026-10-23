@@ -59,7 +59,7 @@
                            ValueChanged="@(EventCallback.Factory.Create<Well?>(this, OnWellChanged))"
                            Dense="true"
                            ToStringFunc="@(s => s?.Name)">
-                    @foreach (var wellKVP in Wells.Where(x => (x.Value != null && ((x.Value.ClusterID != null && _selectedCluster != null && _selectedCluster.MetaInfo != null && _selectedCluster.MetaInfo.ID == x.Value.ClusterID && !x.Value.IsSingleWell) || (x.Value.IsSingleWell)))))
+                    @foreach (var wellKVP in Wells.Where(x => WellSelectionFilter.IsVisible(x.Value, _selectedField?.MetaInfo?.ID, _selectedCluster?.MetaInfo?.ID, Clusters)))
                     {
                         <MudSelectItem Value="@wellKVP.Value">@wellKVP.Value.Name</MudSelectItem>
                     }

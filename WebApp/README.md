@@ -61,3 +61,9 @@ There is no first-record fallback. Temporary service failures leave the output c
 Selections are retained on the Blackboard and restored when reopening the selector page;
 restoration requires the Blackboard to retain its state. Changing the selected wellbore resets
 incompatible choices. Apply selections writes the wellbore and all three UUIDs in one OPC-UA call.
+
+## Well menu field scoping
+A single well belongs to its field through its proxy ClusterID, even though that proxy is
+not shown in the Cluster menu. The Well menu requires the proxy cluster's FieldID to match
+the selected field. Clustered wells additionally require the selected cluster. Unlinked wells
+and wells with unknown cluster ownership are omitted. WebApp.Tests covers these cases.
