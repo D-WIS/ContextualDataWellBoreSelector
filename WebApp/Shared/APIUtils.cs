@@ -1,4 +1,4 @@
-﻿using DWIS.ContextualData.WellBoreSelector.ModelShared;
+using DWIS.ContextualData.WellBoreSelector.ModelShared;
 using Plotly.Blazor.Traces.SankeyLib;
 
 public static class APIUtils
@@ -84,5 +84,48 @@ public static class APIUtils
         }
 
         return value;
+    }
+
+    public static Task<List<DWIS.ContextualData.WellBoreSelector.ModelShared.Field>> LoadFieldsAsync() =>
+        LoadAllAsync(async offset =>
+        {
+            var page = await ClientField.DiscoverFieldAsync(offset: offset, limit: 100);
+            return (page.Items.Select(item => new DWIS.ContextualData.WellBoreSelector.ModelShared.Field { MetaInfo = item.MetaInfo, Name = item.Name }), page.NextOffset);
+        });
+
+    public static Task<List<DWIS.ContextualData.WellBoreSelector.ModelShared.Cluster>> LoadClustersAsync() =>
+        LoadAllAsync(async offset =>
+        {
+            var page = await ClientCluster.DiscoverClusterAsync(offset: offset, limit: 100);
+            return (page.Items.Select(item => new DWIS.ContextualData.WellBoreSelector.ModelShared.Cluster { MetaInfo = item.MetaInfo, Name = item.Name, FieldID = item.FieldID, IsSingleWell = item.IsSingleWell }), page.NextOffset);
+        });
+
+    public static Task<List<DWIS.ContextualData.WellBoreSelector.ModelShared.Well>> LoadWellsAsync() =>
+        LoadAllAsync(async offset =>
+        {
+            var page = await ClientWell.DiscoverWellAsync(offset: offset, limit: 100);
+            return (page.Items.Select(item => new DWIS.ContextualData.WellBoreSelector.ModelShared.Well { MetaInfo = item.MetaInfo, Name = item.Name, ClusterID = item.ClusterID, IsSingleWell = item.IsSingleWell }), page.NextOffset);
+        });
+
+    public static Task<List<DWIS.ContextualData.WellBoreSelector.ModelShared.WellBore>> LoadWellBoresAsync() =>
+        LoadAllAsync(async offset =>
+        {
+            var page = await ClientWellBore.DiscoverWellBoreAsync(offset: offset, limit: 100);
+            return (page.Items.Select(item => new DWIS.ContextualData.WellBoreSelector.ModelShared.WellBore { MetaInfo = item.MetaInfo, Name = item.Name, WellID = item.WellID }), page.NextOffset);
+        });
+
+    private static async Task<List<T>> LoadAllAsync<T>(
+        Func<int, Task<(IEnumerable<T> Items, int? NextOffset)>> discover)
+    {
+        var records = new List<T>();
+        int offset = 0;
+        while (true)
+        {
+            var page = await discover(offset);
+            records.AddRange(page.Items);
+            if (page.NextOffset is not int next) return records;
+            if (next <= offset) throw new InvalidDataException("Discovery returned a non-advancing page offset.");
+            offset = next;
+        }
     }
 }

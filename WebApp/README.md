@@ -37,3 +37,15 @@ DrillingProperties 10.2.11 is supplied by Common Model. General.Statistics is ex
 to 3.3.6, which supplies General.Math 1.4.2 transitively; no direct Math reference is needed.
 The selector uses General.DataManagement 2.2.0 and DrillingRazorMudComponents 3.4.9,
 which resolves the Conversion, DrillingEngineering and UnitSystem packages at 3.4.5.
+
+## Current production APIs
+The configuration uses https://app.digiwells.no/; the Blackboard address remains independently
+configurable. Generator inputs were refreshed from each service's /api/swagger/merged/swagger.json
+export, retaining its own resource routes and the transitive schema references, including
+discriminator mappings. This avoids importing stale routes from bundled dependencies.
+Run the ModelSharedOut generator from the repository root and answer Y to overwrite.
+NSwag owns the generated C# and merged JSON. Collections are mutable lists. Unused reflection
+pseudo constructors are no longer generated; NSwag supplies DTO defaults.
+The selector follows NextOffset on LightData discovery pages and uses light hierarchy records
+for its menus. It fetches the complete wellbore by UUID when publishing the selection. Service
+load failures and Blackboard write outcomes are displayed in the UI.

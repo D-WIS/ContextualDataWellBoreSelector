@@ -1,9 +1,9 @@
 {
-  "WellBoreSelectorHostURL": "https://dev.digiwells.no/",
-  "UnitConversionHostURL": "https://dev.digiwells.no/",
-  "WellBoreHostURL": "https://dev.digiwells.no/",
-  "WellHostURL": "https://dev.digiwells.no/",
-  "FieldHostURL": "https://dev.digiwells.no/",
-  "ClusterHostURL": "https://dev.digiwells.no/",
+  "WellBoreSelectorHostURL": "https://app.digiwells.no/",
+  "UnitConversionHostURL": "https://app.digiwells.no/",
+  "WellBoreHostURL": "https://app.digiwells.no/",
+  "WellHostURL": "https://app.digiwells.no/",
+  "FieldHostURL": "https://app.digiwells.no/",
+  "ClusterHostURL": "https://app.digiwells.no/",
   "GeneralBlackboard": "opc.tcp://localhost:48030"
 }

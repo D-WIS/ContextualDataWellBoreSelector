@@ -1,4 +1,4 @@
-﻿@page "/Selector"
+@page "/Selector"
 @inject NavigationManager Navigation
 @inject ILogger<SelectorMain> logger
 @inject ISnackbar Snackbar
@@ -152,7 +152,7 @@
         {
             logger?.LogInformation("Trying to load microservices through client: " + APIUtils.HttpClientField.BaseAddress);
             // get guid and name from external microservices
-            ICollection<DWIS.ContextualData.WellBoreSelector.ModelShared.Field> fields = await APIUtils.ClientField.GetAllFieldAsync();
+            ICollection<DWIS.ContextualData.WellBoreSelector.ModelShared.Field> fields = await APIUtils.LoadFieldsAsync();
             foreach (DWIS.ContextualData.WellBoreSelector.ModelShared.Field field in fields)
             {
                 Fields ??= new Dictionary<Guid, DWIS.ContextualData.WellBoreSelector.ModelShared.Field>();
@@ -161,7 +161,7 @@
                     Fields.Add(field.MetaInfo.ID, field);
                 }
             }
-            ICollection<Cluster> clusters = await APIUtils.ClientCluster.GetAllClusterAsync();
+            ICollection<Cluster> clusters = await APIUtils.LoadClustersAsync();
             foreach (Cluster cluster in clusters)
             {
                 Clusters ??= new Dictionary<Guid, Cluster>();
@@ -170,7 +170,7 @@
                     Clusters.Add(cluster.MetaInfo.ID, cluster);
                 }
             }
-            ICollection<Well> wells = await APIUtils.ClientWell.GetAllWellAsync();
+            ICollection<Well> wells = await APIUtils.LoadWellsAsync();
             foreach (Well well in wells)
             {
                 Wells ??= new Dictionary<Guid, Well>();
@@ -179,7 +179,7 @@
                     Wells.Add(well.MetaInfo.ID, well);
                 }
             }
-            ICollection<WellBore> wellBores = await APIUtils.ClientWellBore.GetAllWellBoreAsync();
+            ICollection<WellBore> wellBores = await APIUtils.LoadWellBoresAsync();
             foreach (WellBore wellBore in wellBores)
             {
                 WellBores ??= new Dictionary<Guid, WellBore>();
@@ -192,6 +192,7 @@
         catch (Exception ex)
         {
             logger?.LogError(ex, "Impossible to load microservices");
+            Snackbar.Add("Cannot load the wellbore hierarchy. Check the configured service URLs and service availability.", Severity.Error);
         }
     }
 
@@ -419,9 +420,12 @@
             string? json = null;
             if (_selectedWellBore is not null)
             {
-                json = JsonSerializer.Serialize(_selectedWellBore);
+                var wellBore = await APIUtils.ClientWellBore.GetWellBoreByIdAsync(_selectedWellBore.MetaInfo.ID);
+                json = JsonSerializer.Serialize(wellBore);
             }
-            DWISConnector.Instance.SendValue(_placeHolder, json);
+            if (DWISConnector.Instance.SendValue(_placeHolder, json))
+                Snackbar.Add("Selected wellbore published to the Blackboard.", Severity.Success);
+            else Snackbar.Add("The Blackboard rejected the wellbore selection.", Severity.Error);
         }
         await Task.Yield();
     }
