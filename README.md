@@ -48,3 +48,15 @@ pseudo constructors are no longer generated; NSwag supplies DTO defaults.
 The selector follows NextOffset on LightData discovery pages and uses light hierarchy records
 for its menus. It fetches the complete wellbore by UUID when publishing the selection. Service
 load failures and Blackboard write outcomes are displayed in the UI.
+
+## Explicit contextual selections
+The WellBore Selector publishes SelectedWellBoreArchitectureUUID, SelectedTrajectoryUUID and
+SelectedDrillStringUUID as separate string signals, semantically classified as ConfigurationData
+and the corresponding description kind. Values are UUID strings; an empty string clears a choice.
+The existing JSON description signals carry the selected full records, not these UUIDs.
+Each bridge requires an explicit UUID, fetches that record by ID and verifies its WellBoreID
+before publishing. Missing or incompatible selections clear the description to JSON null.
+There is no first-record fallback. Temporary service failures leave the output cleared and retry.
+Selections are retained on the Blackboard and restored when reopening the selector page;
+restoration requires the Blackboard to retain its state. Changing the selected wellbore resets
+incompatible choices. Apply selections writes the wellbore and all three UUIDs in one OPC-UA call.

@@ -5,5 +5,8 @@
   "WellHostURL": "https://app.digiwells.no/",
   "FieldHostURL": "https://app.digiwells.no/",
   "ClusterHostURL": "https://app.digiwells.no/",
-  "GeneralBlackboard": "opc.tcp://localhost:48030"
+  "GeneralBlackboard": "opc.tcp://localhost:48030",
+  "WellBoreArchitectureHostURL": "https://app.digiwells.no/",
+  "TrajectoryHostURL": "https://app.digiwells.no/",
+  "DrillStringHostURL": "https://app.digiwells.no/"
 }

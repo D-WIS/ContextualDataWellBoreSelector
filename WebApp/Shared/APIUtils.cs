@@ -128,4 +128,31 @@ public static class APIUtils
             offset = next;
         }
     }
+    public static async Task<List<WebApp.ContextOption>> LoadArchitectureOptionsAsync(Guid wellBoreID)
+    {
+        using var http = SetHttpClient(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.WellBoreArchitectureHostURL!, "WellBoreArchitecture/api/");
+        var client = new Client(http.BaseAddress!.ToString(), http);
+        return await LoadAllAsync(async offset =>
+        {
+            var page = await client.DiscoverWellBoreArchitectureAsync(offset: offset, limit: 100, wellBoreId: wellBoreID);
+            return (page.Items.Where(x => x.WellBoreID == wellBoreID).Select(x => new WebApp.ContextOption(x.MetaInfo.ID, x.Name)), page.NextOffset);
+        });
+    }
+    public static async Task<List<WebApp.ContextOption>> LoadTrajectoryOptionsAsync(Guid wellBoreID)
+    {
+        using var http = SetHttpClient(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.TrajectoryHostURL!, "Trajectory/api/");
+        var client = new Client(http.BaseAddress!.ToString(), http);
+        return await LoadAllAsync(async offset =>
+        {
+            var page = await client.DiscoverTrajectoryAsync(offset: offset, limit: 100, wellBoreId: wellBoreID);
+            return (page.Items.Where(x => x.WellBoreID == wellBoreID).Select(x => new WebApp.ContextOption(x.MetaInfo.ID, x.Name)), page.NextOffset);
+        });
+    }
+    public static async Task<List<WebApp.ContextOption>> LoadDrillStringOptionsAsync(Guid wellBoreID)
+    {
+        using var http = SetHttpClient(DWIS.ContextualData.WellBoreSelector.WebApp.Configuration.Instance.DrillStringHostURL!, "DrillString/api/");
+        var client = new Client(http.BaseAddress!.ToString(), http);
+        var items = await client.GetAllDrillStringLightAsync();
+        return items.Where(x => x.WellBoreID == wellBoreID).Select(x => new WebApp.ContextOption(x.MetaInfo.ID, x.Name)).ToList();
+    }
 }

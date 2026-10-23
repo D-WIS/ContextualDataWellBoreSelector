@@ -28,3 +28,7 @@ pseudo constructors are no longer generated; NSwag supplies DTO defaults.
 The selector follows NextOffset on LightData discovery pages and uses light hierarchy records
 for its menus. It fetches the complete wellbore by UUID when publishing the selection. Service
 load failures and Blackboard write outcomes are displayed in the UI.
+
+The selector now includes the primary WellBoreArchitecture, Trajectory and DrillString routes
+and referenced DTOs alongside Field/Cluster/Well/WellBore for contextual selection menus.
+The DrillString schema retains its newer authoritative equipment-identity fields.

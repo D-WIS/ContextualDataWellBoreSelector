@@ -952,6 +952,576 @@ namespace DWIS.ContextualData.WellBoreSelector.ModelShared
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> GetAllDrillStringIdAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "DrillString"
+                    urlBuilder_.Append("DrillString");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<System.Guid>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task PostDrillStringAsync(DrillString body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "DrillString"
+                    urlBuilder_.Append("DrillString");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<MetaInfo>> GetAllDrillStringMetaInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "DrillString/MetaInfo"
+                    urlBuilder_.Append("DrillString/MetaInfo");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<MetaInfo>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<DrillString> GetDrillStringByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "DrillString/{id}"
+                    urlBuilder_.Append("DrillString/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<DrillString>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task PutDrillStringByIdAsync(System.Guid id, DrillString body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "DrillString/{id}"
+                    urlBuilder_.Append("DrillString/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task DeleteDrillStringByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "DrillString/{id}"
+                    urlBuilder_.Append("DrillString/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DrillStringLight>> GetAllDrillStringLightAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "DrillString/LightData"
+                    urlBuilder_.Append("DrillString/LightData");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<DrillStringLight>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DrillString>> GetAllDrillStringAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "DrillString/HeavyData"
+                    urlBuilder_.Append("DrillString/HeavyData");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<DrillString>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<FieldDiscoveryPage> DiscoverFieldAsync(int? offset = null, int? limit = null, string name = null, System.Guid? projectionDefinitionId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
@@ -1743,6 +2313,1567 @@ namespace DWIS.ContextualData.WellBoreSelector.ModelShared
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             throw new ApiException<FieldBatchErrorEnvelope>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TrajectoryDiscoveryPage> DiscoverTrajectoryAsync(int? offset = null, int? limit = null, string name = null, System.Guid? fieldId = null, System.Guid? clusterId = null, System.Guid? wellId = null, System.Guid? wellBoreId = null, TrajectoryType? trajectoryType = null, bool? isDefinitive = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/LightData"
+                    urlBuilder_.Append("Trajectory/LightData");
+                    urlBuilder_.Append('?');
+                    if (offset != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("offset")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(offset, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (name != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("name")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (fieldId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("fieldId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(fieldId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (clusterId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("clusterId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(clusterId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (wellId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("wellId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(wellId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (wellBoreId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("wellBoreId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(wellBoreId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (trajectoryType != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("trajectoryType")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(trajectoryType, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (isDefinitive != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("isDefinitive")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(isDefinitive, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryDiscoveryPage>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TrajectoryBatchExportDocument> BatchExportTrajectoryDataAsync(TrajectoryBatchExportRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/BatchExport"
+                    urlBuilder_.Append("Trajectory/BatchExport");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryBatchExportDocument>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<TrajectoryBatchErrorEnvelope>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<TrajectoryBatchErrorEnvelope>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<TrajectoryBatchErrorEnvelope>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TrajectoryBatchRestoreResponse> BatchRestoreTrajectoryDataAsync(TrajectoryBatchRestoreRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/BatchRestore"
+                    urlBuilder_.Append("Trajectory/BatchRestore");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryBatchRestoreResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<TrajectoryBatchErrorEnvelope>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 409)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<TrajectoryBatchErrorEnvelope>("Conflict", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<TrajectoryBatchErrorEnvelope>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> GetAllTrajectoryIdAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory"
+                    urlBuilder_.Append("Trajectory");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<System.Guid>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task PostTrajectoryAsync(Trajectory body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory"
+                    urlBuilder_.Append("Trajectory");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<MetaInfo>> GetAllTrajectoryMetaInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/MetaInfo"
+                    urlBuilder_.Append("Trajectory/MetaInfo");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<MetaInfo>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Trajectory> GetTrajectoryByIdAsync(System.Guid id, bool? includeCalculatedStations = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append('?');
+                    if (includeCalculatedStations != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("includeCalculatedStations")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(includeCalculatedStations, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Trajectory>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task PutTrajectoryByIdAsync(System.Guid id, System.DateTimeOffset expectedModifiedUtc, Trajectory body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            if (expectedModifiedUtc == null)
+                throw new System.ArgumentNullException("expectedModifiedUtc");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append('?');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("expectedModifiedUtc")).Append('=').Append(System.Uri.EscapeDataString(expectedModifiedUtc.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task DeleteTrajectoryByIdAsync(System.Guid id, System.DateTimeOffset expectedModifiedUtc, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            if (expectedModifiedUtc == null)
+                throw new System.ArgumentNullException("expectedModifiedUtc");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append('?');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("expectedModifiedUtc")).Append('=').Append(System.Uri.EscapeDataString(expectedModifiedUtc.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<SurveyStation> GetTrajectoryStationAtAlongHoleDepthAsync(System.Guid id, double alongHoleDepth, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            if (alongHoleDepth == null)
+                throw new System.ArgumentNullException("alongHoleDepth");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}/Station"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/Station");
+                    urlBuilder_.Append('?');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("alongHoleDepth")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(alongHoleDepth, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<SurveyStation>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ReferencedTrajectoryStation> GetReferencedTrajectoryStationAsync(System.Guid id, double alongHoleDepth, double originWgs84Depth, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            if (alongHoleDepth == null)
+                throw new System.ArgumentNullException("alongHoleDepth");
+
+            if (originWgs84Depth == null)
+                throw new System.ArgumentNullException("originWgs84Depth");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}/ReferencedStation"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/ReferencedStation");
+                    urlBuilder_.Append('?');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("alongHoleDepth")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(alongHoleDepth, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("originWgs84Depth")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(originWgs84Depth, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ReferencedTrajectoryStation>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TrajectoryVerticalEllipseEvaluation> GetTrajectoryVerticalEllipseAsync(System.Guid id, double alongHoleDepth, double confidenceFactor, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            if (alongHoleDepth == null)
+                throw new System.ArgumentNullException("alongHoleDepth");
+
+            if (confidenceFactor == null)
+                throw new System.ArgumentNullException("confidenceFactor");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}/VerticalEllipse"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/VerticalEllipse");
+                    urlBuilder_.Append('?');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("alongHoleDepth")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(alongHoleDepth, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("confidenceFactor")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(confidenceFactor, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryVerticalEllipseEvaluation>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TrajectoryHorizontalEllipseEvaluation> GetTrajectoryHorizontalEllipseAsync(System.Guid id, double alongHoleDepth, double confidenceFactor, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            if (alongHoleDepth == null)
+                throw new System.ArgumentNullException("alongHoleDepth");
+
+            if (confidenceFactor == null)
+                throw new System.ArgumentNullException("confidenceFactor");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}/HorizontalEllipse"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/HorizontalEllipse");
+                    urlBuilder_.Append('?');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("alongHoleDepth")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(alongHoleDepth, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Append(System.Uri.EscapeDataString("confidenceFactor")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(confidenceFactor, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryHorizontalEllipseEvaluation>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<int> GetTrajectorySurveyStationChunkCountAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}/SurveyStations/ChunkCount"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/SurveyStations/ChunkCount");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<int>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<SurveyStationChunk> GetTrajectorySurveyStationChunkAsync(System.Guid id, int chunkIndex, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            if (chunkIndex == null)
+                throw new System.ArgumentNullException("chunkIndex");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}/SurveyStations/Chunks/{chunkIndex}"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/SurveyStations/Chunks/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(chunkIndex, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<SurveyStationChunk>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TrajectorySearchResult> SearchTrajectoryAsync(string query = null, System.Guid? fieldId = null, System.Guid? clusterId = null, System.Guid? wellId = null, System.Guid? wellBoreId = null, TrajectoryType? trajectoryType = null, bool? isDefinitive = null, int? offset = null, int? limit = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/Search"
+                    urlBuilder_.Append("Trajectory/Search");
+                    urlBuilder_.Append('?');
+                    if (query != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("query")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(query, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (fieldId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("fieldId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(fieldId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (clusterId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("clusterId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(clusterId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (wellId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("wellId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(wellId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (wellBoreId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("wellBoreId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(wellBoreId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (trajectoryType != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("trajectoryType")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(trajectoryType, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (isDefinitive != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("isDefinitive")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(isDefinitive, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (offset != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("offset")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(offset, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectorySearchResult>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TrajectoryExternalReferenceValidation> ValidateTrajectoryExternalReferencesAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/{id}/ExternalReferences"
+                    urlBuilder_.Append("Trajectory/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/ExternalReferences");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryExternalReferenceValidation>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TrajectoryExternalReferenceAuditResult> AuditTrajectoryExternalReferencesAsync(TrajectoryExternalReferenceAuditRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "Trajectory/ExternalReferenceAudit"
+                    urlBuilder_.Append("Trajectory/ExternalReferenceAudit");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<TrajectoryExternalReferenceAuditResult>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -5675,6 +7806,1042 @@ namespace DWIS.ContextualData.WellBoreSelector.ModelShared
             }
         }
 
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<WellBoreArchitectureDiscoveryPage> DiscoverWellBoreArchitectureAsync(int? offset = null, int? limit = null, string name = null, System.Guid? wellBoreId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/LightData"
+                    urlBuilder_.Append("WellBoreArchitecture/LightData");
+                    urlBuilder_.Append('?');
+                    if (offset != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("offset")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(offset, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (name != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("name")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (wellBoreId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("wellBoreId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(wellBoreId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureDiscoveryPage>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Guid>> GetAllWellBoreArchitectureIdAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture"
+                    urlBuilder_.Append("WellBoreArchitecture");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<System.Guid>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task PostWellBoreArchitectureAsync(WellBoreArchitecture body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture"
+                    urlBuilder_.Append("WellBoreArchitecture");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<MetaInfo>> GetAllWellBoreArchitectureMetaInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/MetaInfo"
+                    urlBuilder_.Append("WellBoreArchitecture/MetaInfo");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<MetaInfo>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<WellBoreArchitecture> GetWellBoreArchitectureByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/{id}"
+                    urlBuilder_.Append("WellBoreArchitecture/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitecture>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task PutWellBoreArchitectureByIdAsync(System.Guid id, WellBoreArchitecture body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/{id}"
+                    urlBuilder_.Append("WellBoreArchitecture/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task DeleteWellBoreArchitectureByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/{id}"
+                    urlBuilder_.Append("WellBoreArchitecture/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<WellboreRadialProfile> GetRadialProfileAtAbscissaAsync(System.Guid id, double? alongHoleDepth = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/{id}/RadialProfile"
+                    urlBuilder_.Append("WellBoreArchitecture/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/RadialProfile");
+                    urlBuilder_.Append('?');
+                    if (alongHoleDepth != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("alongHoleDepth")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(alongHoleDepth, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellboreRadialProfile>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<DeepestCasingShoeResult> GetDeepestCasingShoeAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/{id}/DeepestCasingShoe"
+                    urlBuilder_.Append("WellBoreArchitecture/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/DeepestCasingShoe");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<DeepestCasingShoeResult>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<WellBoreArchitectureExternalReferenceValidation> ValidateWellBoreArchitectureExternalReferencesAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/{id}/ExternalReferences"
+                    urlBuilder_.Append("WellBoreArchitecture/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/ExternalReferences");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureExternalReferenceValidation>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<WellBoreArchitectureExternalReferenceAuditResult> AuditWellBoreArchitectureExternalReferencesAsync(WellBoreArchitectureExternalReferenceAuditRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/ExternalReferenceAudit"
+                    urlBuilder_.Append("WellBoreArchitecture/ExternalReferenceAudit");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureExternalReferenceAuditResult>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<WellBoreArchitectureBatchExportDocument> BatchExportWellBoreArchitecturesAsync(WellBoreArchitectureBatchExportRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/BatchExport"
+                    urlBuilder_.Append("WellBoreArchitecture/BatchExport");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureBatchExportDocument>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<WellBoreArchitectureBatchErrorEnvelope>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<WellBoreArchitectureBatchErrorEnvelope>("Not Found", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<WellBoreArchitectureBatchErrorEnvelope>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<WellBoreArchitectureBatchRestoreResponse> BatchRestoreWellBoreArchitecturesAsync(WellBoreArchitectureBatchRestoreRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "WellBoreArchitecture/BatchRestore"
+                    urlBuilder_.Append("WellBoreArchitecture/BatchRestore");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureBatchRestoreResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<WellBoreArchitectureBatchErrorEnvelope>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 409)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<WellBoreArchitectureBatchErrorEnvelope>("Conflict", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<WellBoreArchitectureBatchErrorEnvelope>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<WellBoreArchitectureBatchErrorEnvelope>("Internal Server Error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
         protected struct ObjectResponseResult<T>
         {
             public ObjectResponseResult(T responseObject, string responseText)
@@ -7018,6 +10185,569 @@ namespace DWIS.ContextualData.WellBoreSelector.ModelShared
 
     }
 
+    /// <summary>
+    /// an enum to describe the types deriving from MyBaseData
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum DrillStringComponentTypes
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DrillPipe")]
+        DrillPipe = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DrillCollar")]
+        DrillCollar = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"HeavyWeightDrillPipe")]
+        HeavyWeightDrillPipe = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Jar")]
+        Jar = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Mwd")]
+        Mwd = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Stabilizer")]
+        Stabilizer = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"SteerableRotaryTool")]
+        SteerableRotaryTool = 6,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Bit")]
+        Bit = 7,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Other")]
+        Other = 8,
+
+    }
+
+    /// <summary>
+    /// an enum to describe the types of sensors in the drill string
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum DrillStringSensorTypes
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Acoustic")]
+        Acoustic = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AccelerometerX")]
+        AccelerometerX = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AccelerometerY")]
+        AccelerometerY = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AccelerometerZ")]
+        AccelerometerZ = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ResistivitySource")]
+        ResistivitySource = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ResistivityReceiver")]
+        ResistivityReceiver = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"NeutronDensity")]
+        NeutronDensity = 6,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"NeutronPorosity")]
+        NeutronPorosity = 7,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MagnetometerX")]
+        MagnetometerX = 8,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MagnetometerY")]
+        MagnetometerY = 9,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"RotationalPitch")]
+        RotationalPitch = 10,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"RotationalRoll")]
+        RotationalRoll = 11,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"RotationalYaw")]
+        RotationalYaw = 12,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"BendingMomentX")]
+        BendingMomentX = 13,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"BendingMomentY")]
+        BendingMomentY = 14,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"StringPressure")]
+        StringPressure = 15,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AnnulusPressure")]
+        AnnulusPressure = 16,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"StringTemperature")]
+        StringTemperature = 17,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ElectronicTemperature")]
+        ElectronicTemperature = 18,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AnnulusTemperature")]
+        AnnulusTemperature = 19,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GammaRay")]
+        GammaRay = 20,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Other")]
+        Other = 21,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Tension")]
+        Tension = 22,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Torque")]
+        Torque = 23,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DrillString
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        /// <summary>
+        /// name of the data
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// a description of the data
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// the date when the data was created
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        /// <summary>
+        /// the date when the data was last modified
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        /// <summary>
+        /// Carries the guid of the associated wellbore
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid? WellBoreID { get; set; }
+
+        /// <summary>
+        /// Section of the drill-string (drill-pipes, heavy weight drill pipes, BHA...)
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("DrillStringSectionList")]
+        public System.Collections.Generic.List<DrillStringSection> DrillStringSectionList { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SensorsList")]
+        public System.Collections.Generic.List<DrillStringSensor> SensorsList { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DrillStringComponent
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("EquipmentIdentity")]
+        public EquipmentIdentity EquipmentIdentity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// the date when the data was created
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        /// <summary>
+        /// the date when the data was last modified
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// the Field which this component belongs to
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldID")]
+        public System.Guid? FieldID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Type")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public DrillStringComponentTypes Type { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("PartList")]
+        public System.Collections.Generic.List<DrillStringComponentPart> PartList { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Length")]
+        public double Length { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DrillStringComponentPart
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ID")]
+        public System.Guid ID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TotalLength")]
+        public double TotalLength { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OuterDiameter")]
+        public double OuterDiameter { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("InnerDiameter")]
+        public double InnerDiameter { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OuterDiameterState2")]
+        public double? OuterDiameterState2 { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OuterDiameterStateBoolean")]
+        public bool? OuterDiameterStateBoolean { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FrictionFactorRotation")]
+        public double? FrictionFactorRotation { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FrictionFactorAxialDisplacement")]
+        public double? FrictionFactorAxialDisplacement { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("PressureLossConstantLowFlowRate")]
+        public double? PressureLossConstantLowFlowRate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("PressureLossConstantHighFlowRate")]
+        public double? PressureLossConstantHighFlowRate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("EccentricityDistance")]
+        public double? EccentricityDistance { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("EccentricityAngle")]
+        public double? EccentricityAngle { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TotalFlowAreaCondition1")]
+        public double? TotalFlowAreaCondition1 { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TotalFlowAreaCondition2")]
+        public double? TotalFlowAreaCondition2 { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TotalFlowAreaConditionBoolean")]
+        public bool? TotalFlowAreaConditionBoolean { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FlowrateThresholdValue")]
+        public double? FlowrateThresholdValue { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("InnerCoatingThickness")]
+        public double? InnerCoatingThickness { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("InnerCoatingDensity")]
+        public double? InnerCoatingDensity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("InnerCoatingThermalCondutivity")]
+        public double? InnerCoatingThermalCondutivity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("InnerCoatingHeatCapacity")]
+        public double? InnerCoatingHeatCapacity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OuterCoatingThickness")]
+        public double? OuterCoatingThickness { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OuterCoatingDensity")]
+        public double? OuterCoatingDensity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OuterCoatingThermalCondutivity")]
+        public double? OuterCoatingThermalCondutivity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OuterCoatingHeatCapacity")]
+        public double? OuterCoatingHeatCapacity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("YieldStrength")]
+        public double? YieldStrength { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UltimateStrength")]
+        public double? UltimateStrength { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SecondCrossSectionTorsionalInertia")]
+        public double? SecondCrossSectionTorsionalInertia { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FirstCrossSectionTorsionalInertia")]
+        public double FirstCrossSectionTorsionalInertia { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CrossSectionArea")]
+        public double CrossSectionArea { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("YoungModulus")]
+        public double YoungModulus { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("PoissonRatio")]
+        public double PoissonRatio { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("MaterialDensity")]
+        public double MaterialDensity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("AveragePartDensity")]
+        public double AveragePartDensity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Mass")]
+        public double Mass { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("HeatCapacity")]
+        public double HeatCapacity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ThermalCondutivity")]
+        public double ThermalCondutivity { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// Light weight version of a MyParentData
+    /// <br/>Used to avoid loading the complete MyParentData (heavy weight data) each time we only need contextual info on the data
+    /// <br/>Typically used for listing, sorting and filtering purposes
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DrillStringLight
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        /// <summary>
+        /// name of the data
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// a description of the data
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// the date when the data was created
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        /// <summary>
+        /// the date when the data was last modified
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        /// <summary>
+        /// Carries the guid of the associated wellbore
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid? WellBoreID { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DrillStringSection
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Count")]
+        public int Count { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SectionComponentList")]
+        public System.Collections.Generic.List<DrillStringComponent> SectionComponentList { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DrillStringSensor
+    {
+        /// <summary>
+        /// Stable sensor UUID. Null for legacy unidentified sensor entries; never generated on read.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("SensorID")]
+        public System.Guid? SensorID { get; set; }
+
+        /// <summary>
+        /// UUID of the owning component's MetaInfo.ID in this drill-string description.
+        /// <br/>            The referenced component must occur exactly once, including section repetition.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid? ComponentID { get; set; }
+
+        /// <summary>
+        /// Sensor distance along the string from the bit, in SI metres (nonnegative).
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("DistanceFromBit")]
+        public double? DistanceFromBit { get; set; }
+
+        /// <summary>
+        /// Range of the sensor measurement. 0 for in-point measurement
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MeasurementRange")]
+        public double? MeasurementRange { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SensorAngles")]
+        public System.Collections.Generic.List<double> SensorAngles { get; set; }
+
+        /// <summary>
+        /// Type of the sensor integer which referes ti a bitwise enum of the sensor types. This is used for storage and processing purposes
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("SensorTypeInt")]
+        public int SensorTypeInt { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SensorType")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public DrillStringSensorTypes SensorType { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// Product identity and optional persistent identity of any physical drill-string component.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class EquipmentIdentity
+    {
+        /// <summary>
+        /// Persistent UUID of the physical equipment, retained across drill-string descriptions.
+        /// <br/>            Null for a product template. This differs from the component record UUID.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("EquipmentInstanceID")]
+        public System.Guid? EquipmentInstanceID { get; set; }
+
+        /// <summary>
+        /// Manufacturer name, for example NOV or Halliburton.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Manufacturer")]
+        public string Manufacturer { get; set; }
+
+        /// <summary>
+        /// Manufacturer-qualified product identifier, for example NOV/BlackStreamEMS.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ModelIdentifier")]
+        public string ModelIdentifier { get; set; }
+
+        /// <summary>
+        /// Manufacturer's product or brand/model name.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ModelName")]
+        public string ModelName { get; set; }
+
+        /// <summary>
+        /// Optional manufacturer serial number; not a globally unique key.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("SerialNumber")]
+        public string SerialNumber { get; set; }
+
+        /// <summary>
+        /// Optional deployment-managed asset identifier; not a globally unique key.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AssetIdentifier")]
+        public string AssetIdentifier { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Field
     {
@@ -8010,6 +11740,2778 @@ namespace DWIS.ContextualData.WellBoreSelector.ModelShared
 
         [System.Text.Json.Serialization.JsonPropertyName("Errors")]
         public System.Collections.Generic.List<FieldMutationError> Errors { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum ErrorCode
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XYM1")]
+        XYM1 = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XYM2")]
+        XYM2 = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XYM3")]
+        XYM3 = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XYM4")]
+        XYM4 = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"SAG")]
+        SAG = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DRFR")]
+        DRFR = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DRFS")]
+        DRFS = 6,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DSFS")]
+        DSFS = 7,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DSTG")]
+        DSTG = 8,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XYM3E")]
+        XYM3E = 9,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XYM4E")]
+        XYM4E = 10,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"SAGE")]
+        SAGE = 11,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XCLH")]
+        XCLH = 12,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XCLL")]
+        XCLL = 13,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XCLA")]
+        XCLA = 14,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABXY_TI1S")]
+        ABXY_TI1S = 15,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABXY_TI2S")]
+        ABXY_TI2S = 16,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABIXY_TI1S")]
+        ABIXY_TI1S = 17,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABIXY_TI2S")]
+        ABIXY_TI2S = 18,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABZ")]
+        ABZ = 19,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASXY_TI1S")]
+        ASXY_TI1S = 20,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASXY_TI2S")]
+        ASXY_TI2S = 21,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASXY_TI3S")]
+        ASXY_TI3S = 22,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASZ")]
+        ASZ = 23,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MBXY_TI1")]
+        MBXY_TI1 = 24,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MBXY_TI2")]
+        MBXY_TI2 = 25,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MBZ")]
+        MBZ = 26,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSXY_TI1")]
+        MSXY_TI1 = 27,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSXY_TI2")]
+        MSXY_TI2 = 28,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSXY_TI3")]
+        MSXY_TI3 = 29,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSZ")]
+        MSZ = 30,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AMID")]
+        AMID = 31,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DEC_U")]
+        DEC_U = 32,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DEC_OS")]
+        DEC_OS = 33,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DEC_OH")]
+        DEC_OH = 34,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DEC_OI")]
+        DEC_OI = 35,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DECR")]
+        DECR = 36,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DBH_U")]
+        DBH_U = 37,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DBH_OS")]
+        DBH_OS = 38,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DBH_OH")]
+        DBH_OH = 39,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DBH_OI")]
+        DBH_OI = 40,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DBHR")]
+        DBHR = 41,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AXYZ_XYB")]
+        AXYZ_XYB = 42,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AXYZ_ZB")]
+        AXYZ_ZB = 43,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AXYZ_SF")]
+        AXYZ_SF = 44,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AXYZ_MIS")]
+        AXYZ_MIS = 45,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AXY_B")]
+        AXY_B = 46,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AXY_SF")]
+        AXY_SF = 47,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AXY_MS")]
+        AXY_MS = 48,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AXY_GB")]
+        AXY_GB = 49,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_XYB1")]
+        GXYZ_XYB1 = 50,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_XYB2")]
+        GXYZ_XYB2 = 51,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_XYRN")]
+        GXYZ_XYRN = 52,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_XYG1")]
+        GXYZ_XYG1 = 53,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_XYG2")]
+        GXYZ_XYG2 = 54,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_XYG3")]
+        GXYZ_XYG3 = 55,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_XYG4")]
+        GXYZ_XYG4 = 56,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_ZB")]
+        GXYZ_ZB = 57,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_ZRN")]
+        GXYZ_ZRN = 58,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_ZG1")]
+        GXYZ_ZG1 = 59,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_ZG2")]
+        GXYZ_ZG2 = 60,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_SF")]
+        GXYZ_SF = 61,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_MIS")]
+        GXYZ_MIS = 62,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_B1")]
+        GXY_B1 = 63,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_B2")]
+        GXY_B2 = 64,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_RN")]
+        GXY_RN = 65,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_G1")]
+        GXY_G1 = 66,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_G2")]
+        GXY_G2 = 67,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_G3")]
+        GXY_G3 = 68,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_G4")]
+        GXY_G4 = 69,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_SF")]
+        GXY_SF = 70,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_MIS")]
+        GXY_MIS = 71,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"EXT_REF")]
+        EXT_REF = 72,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"EXT_TIE")]
+        EXT_TIE = 73,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"EXT_MIS")]
+        EXT_MIS = 74,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_GD")]
+        GXYZ_GD = 75,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXYZ_RW")]
+        GXYZ_RW = 76,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_GD")]
+        GXY_GD = 77,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GXY_RW")]
+        GXY_RW = 78,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GZ_GD")]
+        GZ_GD = 79,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GZ_RW")]
+        GZ_RW = 80,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DSTS")]
+        DSTS = 81,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XCLI1")]
+        XCLI1 = 82,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"XCLI2")]
+        XCLI2 = 83,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"AMIL")]
+        AMIL = 84,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABIXY_TI1")]
+        ABIXY_TI1 = 85,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABIXY_TI2")]
+        ABIXY_TI2 = 86,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABIZ")]
+        ABIZ = 87,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASIXY_TI1")]
+        ASIXY_TI1 = 88,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASIXY_TI2")]
+        ASIXY_TI2 = 89,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASIXY_TI3")]
+        ASIXY_TI3 = 90,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASIZ")]
+        ASIZ = 91,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MBIXY_TI1")]
+        MBIXY_TI1 = 92,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MBIXY_TI2")]
+        MBIXY_TI2 = 93,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSIXY_TI1")]
+        MSIXY_TI1 = 94,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSIXY_TI2")]
+        MSIXY_TI2 = 95,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSIXY_TI3")]
+        MSIXY_TI3 = 96,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MFI")]
+        MFI = 97,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MDI")]
+        MDI = 98,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"CNA")]
+        CNA = 99,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"CNI")]
+        CNI = 100,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABXY_TI1")]
+        ABXY_TI1 = 101,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ABXY_TI2")]
+        ABXY_TI2 = 102,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASXY_TI1")]
+        ASXY_TI1 = 103,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASXY_TI2")]
+        ASXY_TI2 = 104,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASXY_TI3")]
+        ASXY_TI3 = 105,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DEC")]
+        DEC = 106,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"DBH")]
+        DBH = 107,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASIXY_TI1S")]
+        ASIXY_TI1S = 108,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASIXY_TI2S")]
+        ASIXY_TI2S = 109,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ASIXY_TI3S")]
+        ASIXY_TI3S = 110,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MBIXY_TI1S")]
+        MBIXY_TI1S = 111,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MBIXY_TI2S")]
+        MBIXY_TI2S = 112,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSIXY_TI1S")]
+        MSIXY_TI1S = 113,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSIXY_TI2S")]
+        MSIXY_TI2S = 114,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MSIXY_TI3S")]
+        MSIXY_TI3S = 115,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MDIR")]
+        MDIR = 116,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MFIR")]
+        MFIR = 117,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MFI_U")]
+        MFI_U = 118,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MFI_OS")]
+        MFI_OS = 119,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MFI_OH")]
+        MFI_OH = 120,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MFI_OI")]
+        MFI_OI = 121,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MDI_U")]
+        MDI_U = 122,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MDI_OS")]
+        MDI_OS = 123,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MDI_OH")]
+        MDI_OH = 124,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MDI_OI")]
+        MDI_OI = 125,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum ErrorPropagationMode
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Random")]
+        Random = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Systematic")]
+        Systematic = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"WellByWell")]
+        WellByWell = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Global")]
+        Global = 3,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ErrorSource
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ErrorCode")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public ErrorCode ErrorCode { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Index")]
+        public int Index { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("PropagationMode")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public ErrorPropagationMode PropagationMode { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsSystematic")]
+        public bool IsSystematic { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsRandom")]
+        public bool IsRandom { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsGlobal")]
+        public bool IsGlobal { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SingularIssues")]
+        public bool SingularIssues { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsContinuous")]
+        public bool IsContinuous { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsStationary")]
+        public bool IsStationary { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("KOperatorImposed")]
+        public bool KOperatorImposed { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Magnitude")]
+        public double? Magnitude { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("MagnitudeQuantity")]
+        public string MagnitudeQuantity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UseInclinationInterval")]
+        public bool UseInclinationInterval { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("StartInclination")]
+        public double? StartInclination { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("EndInclination")]
+        public double? EndInclination { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("InitInclination")]
+        public double? InitInclination { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyInstrumentModelType
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MWD_WolffDeWardt")]
+        MWD_WolffDeWardt = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Gyro_WolffDeWardt")]
+        Gyro_WolffDeWardt = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MWD_ISCWSA")]
+        MWD_ISCWSA = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Gyro_ISCWSA")]
+        Gyro_ISCWSA = 3,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SurveyInstrument
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ModelType")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyInstrumentModelType ModelType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ErrorSourceList")]
+        public System.Collections.Generic.List<ErrorSource> ErrorSourceList { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Dip")]
+        public double Dip { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Declination")]
+        public double Declination { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Gravity")]
+        public double Gravity { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("BField")]
+        public double BField { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Convergence")]
+        public double Convergence { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Latitude")]
+        public double Latitude { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("EarthRotRate")]
+        public double EarthRotRate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CantAngle")]
+        public double CantAngle { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GyroRunningSpeed")]
+        public double? GyroRunningSpeed { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ExtRefInitInc")]
+        public double? ExtRefInitInc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GyroSwitching")]
+        public double? GyroSwitching { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GyroMinDist")]
+        public double? GyroMinDist { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GyroNoiseRed")]
+        public double? GyroNoiseRed { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UseRelDepthError")]
+        public bool UseRelDepthError { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("RelDepthError")]
+        public double? RelDepthError { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UseMisalignment")]
+        public bool UseMisalignment { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Misalignment")]
+        public double? Misalignment { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UseTrueInclination")]
+        public bool UseTrueInclination { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrueInclination")]
+        public double? TrueInclination { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UseReferenceError")]
+        public bool UseReferenceError { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ReferenceError")]
+        public double? ReferenceError { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UseDrillStringMag")]
+        public bool UseDrillStringMag { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("DrillStringMag")]
+        public double? DrillStringMag { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UseGyroCompassError")]
+        public bool UseGyroCompassError { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GyroCompassError")]
+        public double? GyroCompassError { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ProblemDetails
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("status")]
+        public int? Status { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("detail")]
+        public string Detail { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("instance")]
+        public string Instance { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SurveyStation
+    {
+        /// <summary>
+        /// WGS84 Riemannian north coordinate in SI metres: signed meridian arc from the equator, north positive. X and RiemannianNorth are aliases; this is not an arbitrary projected northing.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("X")]
+        public double? X { get; set; }
+
+        /// <summary>
+        /// WGS84 Riemannian east coordinate in SI metres: signed arc along the latitude parallel from Greenwich, east positive. Y and RiemannianEast are aliases; this is not an arbitrary projected easting.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Y")]
+        public double? Y { get; set; }
+
+        /// <summary>
+        /// True vertical depth (TVD) in SI metres, positive downward relative to the WGS84 ellipsoid in persisted Trajectory survey data. Z and TVD are aliases; this is not measured depth or an elevation.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Z")]
+        public double? Z { get; set; }
+
+        /// <summary>
+        /// WGS84 Riemannian north coordinate in SI metres: signed meridian arc from the equator, north positive. X and RiemannianNorth are aliases; this is not an arbitrary projected northing.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("RiemannianNorth")]
+        public double? RiemannianNorth { get; set; }
+
+        /// <summary>
+        /// WGS84 Riemannian east coordinate in SI metres: signed arc along the latitude parallel from Greenwich, east positive. Y and RiemannianEast are aliases; this is not an arbitrary projected easting.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("RiemannianEast")]
+        public double? RiemannianEast { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Latitude")]
+        public double? Latitude { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Longitude")]
+        public double? Longitude { get; set; }
+
+        /// <summary>
+        /// True vertical depth (TVD) in SI metres, positive downward relative to the WGS84 ellipsoid in persisted Trajectory survey data. Z and TVD are aliases; this is not measured depth or an elevation.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TVD")]
+        public double? TVD { get; set; }
+
+        /// <summary>
+        /// Measured depth (MD), the curvilinear coordinate along this trajectory/survey run, in SI metres from its declared MD origin. MD and Abscissa are aliases. This is not true vertical depth; a vertical datum offset alone does not change an MD origin.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Abscissa")]
+        public double? Abscissa { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Inclination")]
+        public double? Inclination { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Azimuth")]
+        public double? Azimuth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Curvature")]
+        public double? Curvature { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Toolface")]
+        public double? Toolface { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("BUR")]
+        public double? BUR { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TUR")]
+        public double? TUR { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("VerticalSection")]
+        public double? VerticalSection { get; set; }
+
+        /// <summary>
+        /// Measured depth (MD), the curvilinear coordinate along this trajectory/survey run, in SI metres from its declared MD origin. MD and Abscissa are aliases. This is not true vertical depth; a vertical datum offset alone does not change an MD origin.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MD")]
+        public double? MD { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Annotation")]
+        public string Annotation { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Covariance")]
+        public SymmetricMatrix3x3 Covariance { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("EigenVectors")]
+        public Matrix3x3 EigenVectors { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("EigenValues")]
+        public Vector3D EigenValues { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Bias")]
+        public Vector3D Bias { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyTool")]
+        public SurveyInstrument SurveyTool { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("BoreholeRadius")]
+        public double? BoreholeRadius { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum TrajectoryCalculationType
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MinimumCurvatureMethod")]
+        MinimumCurvatureMethod = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ConstantBuildAndTurnMethod")]
+        ConstantBuildAndTurnMethod = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ConstantCurvatureAndToolfaceMethod")]
+        ConstantCurvatureAndToolfaceMethod = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Matrix3x3
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("RowCount")]
+        public int RowCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ColumnCount")]
+        public int ColumnCount { get; set; }
+
+        /// <summary>
+        /// Version 1 lossless matrix. Missing Values denotes unavailable legacy matrix entries.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("FormatVersion")]
+        [System.ComponentModel.DataAnnotations.Range(1, 1)]
+        public int FormatVersion { get; set; }
+
+        /// <summary>
+        /// Nine row-major entries. Covariance uses square metres in north/east/depth axes; eigenvector entries are dimensionless. Legacy dimension-only payloads remain readable.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Values")]
+        [System.ComponentModel.DataAnnotations.MinLength(9)]
+        [System.ComponentModel.DataAnnotations.MaxLength(9)]
+        public System.Collections.Generic.List<double?> Values { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SymmetricMatrix3x3
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ColumnCount")]
+        public int ColumnCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("RowCount")]
+        public int RowCount { get; set; }
+
+        /// <summary>
+        /// Version 1 lossless matrix. Missing Values denotes unavailable legacy matrix entries.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("FormatVersion")]
+        [System.ComponentModel.DataAnnotations.Range(1, 1)]
+        public int FormatVersion { get; set; }
+
+        /// <summary>
+        /// Nine row-major entries. Covariance uses square metres in north/east/depth axes; eigenvector entries are dimensionless. Legacy dimension-only payloads remain readable.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Values")]
+        [System.ComponentModel.DataAnnotations.MinLength(9)]
+        [System.ComponentModel.DataAnnotations.MaxLength(9)]
+        public System.Collections.Generic.List<double?> Values { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Vector3D
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("X")]
+        public double? X { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Y")]
+        public double? Y { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Z")]
+        public double? Z { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Dim")]
+        public int Dim { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AntiCollisionComparisonOperator
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"LessThan")]
+        LessThan = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"LessThanOrEqual")]
+        LessThanOrEqual = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GreaterThan")]
+        GreaterThan = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GreaterThanOrEqual")]
+        GreaterThanOrEqual = 3,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class AntiCollisionFeatureCondition : AntiCollisionPolicyCondition
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ResourceLevel")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public AntiCollisionHierarchyLevel ResourceLevel { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FeatureCategoryID")]
+        public System.Guid FeatureCategoryID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FeatureOptionID")]
+        public System.Guid FeatureOptionID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TemporalOperator")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public AntiCollisionFeatureTemporalOperator TemporalOperator { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SpecifiedTimeUtc")]
+        public System.DateTimeOffset? SpecifiedTimeUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SpecifiedFromUtc")]
+        public System.DateTimeOffset? SpecifiedFromUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SpecifiedToUtc")]
+        public System.DateTimeOffset? SpecifiedToUtc { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AntiCollisionFeatureTemporalOperator
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ActiveAtEvaluationTime")]
+        ActiveAtEvaluationTime = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ActiveAtOldestMeasurementTime")]
+        ActiveAtOldestMeasurementTime = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"OverlapsMeasurementInterval")]
+        OverlapsMeasurementInterval = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ActiveAtSpecifiedTime")]
+        ActiveAtSpecifiedTime = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"OverlapsSpecifiedInterval")]
+        OverlapsSpecifiedInterval = 4,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AntiCollisionHierarchyLevel
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Cluster")]
+        Cluster = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Slot")]
+        Slot = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Well")]
+        Well = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"WellBore")]
+        WellBore = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Trajectory")]
+        Trajectory = 4,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class AntiCollisionIdentityCondition : AntiCollisionPolicyCondition
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ResourceLevel")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public AntiCollisionHierarchyLevel ResourceLevel { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IdentityDefinitionID")]
+        public System.Guid IdentityDefinitionID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("MatchOperator")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public AntiCollisionIdentityMatchOperator MatchOperator { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Pattern")]
+        public string Pattern { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CaseSensitive")]
+        public bool CaseSensitive { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum AntiCollisionIdentityMatchOperator
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Exact")]
+        Exact = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"StartsWith")]
+        StartsWith = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"EndsWith")]
+        EndsWith = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Contains")]
+        Contains = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Glob")]
+        Glob = 4,
+
+    }
+
+    [JsonInheritanceConverter(typeof(AntiCollisionPolicyCondition), "ConditionType")]
+    [JsonInheritanceAttribute("TrajectoryAge", typeof(AntiCollisionTrajectoryAgeCondition))]
+    [JsonInheritanceAttribute("Identity", typeof(AntiCollisionIdentityCondition))]
+    [JsonInheritanceAttribute("Feature", typeof(AntiCollisionFeatureCondition))]
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class AntiCollisionPolicyCondition
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ConditionID")]
+        public System.Guid ConditionID { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class AntiCollisionPolicyRevision
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("PolicyID")]
+        public System.Guid PolicyID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("RevisionNumber")]
+        public int RevisionNumber { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        /// <summary>
+        /// Dimensionless confidence proportion greater than 0 and no greater than 0.999.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ConfidenceFactor")]
+        [System.ComponentModel.DataAnnotations.Range(0.0D, 0.999D)]
+        public double ConfidenceFactor { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Rules")]
+        public System.Collections.Generic.List<AntiCollisionPolicyRule> Rules { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class AntiCollisionPolicyRule
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("RuleID")]
+        public System.Guid RuleID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Priority")]
+        [System.ComponentModel.DataAnnotations.Range(1, int.MaxValue)]
+        public int Priority { get; set; }
+
+        /// <summary>
+        /// Dimensionless separation-factor Alert threshold; it must be greater than AlarmThreshold.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AlertThreshold")]
+        public double AlertThreshold { get; set; }
+
+        /// <summary>
+        /// Dimensionless separation-factor Alarm threshold.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AlarmThreshold")]
+        public double AlarmThreshold { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Conditions")]
+        public System.Collections.Generic.List<AntiCollisionPolicyCondition> Conditions { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class AntiCollisionTrajectoryAgeCondition : AntiCollisionPolicyCondition
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Operator")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public AntiCollisionComparisonOperator Operator { get; set; }
+
+        /// <summary>
+        /// Comparison trajectory age threshold in canonical SI seconds, evaluated from the oldest defined contributing survey-run acquisition start or station measurement time.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AgeThreshold")]
+        public double AgeThreshold { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class FieldAntiCollisionPolicyAssignment
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldID")]
+        public System.Guid FieldID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("PolicyRevisionID")]
+        public System.Guid PolicyRevisionID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ValidFromUtc")]
+        public System.DateTimeOffset ValidFromUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ValidToUtc")]
+        public System.DateTimeOffset? ValidToUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum CalculationState
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Completed")]
+        Completed = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Queued")]
+        Queued = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Running")]
+        Running = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Failed")]
+        Failed = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"NotCalculated")]
+        NotCalculated = 4,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum ExternalReferenceAuditScope
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"All")]
+        All = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Selected")]
+        Selected = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ExternalReferenceIssue
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Property")]
+        public string Property { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Code")]
+        public string Code { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Message")]
+        public string Message { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum ExternalReferenceValidationStatus
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Valid")]
+        Valid = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Invalid")]
+        Invalid = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unavailable")]
+        Unavailable = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class HorizontalSurveyUncertaintyEllipse
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("SemiMajorAxis")]
+        public double SemiMajorAxis { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SemiMinorAxis")]
+        public double SemiMinorAxis { get; set; }
+
+        /// <summary>
+        /// Full major-axis diameter, twice the shared uncertainty ellipse semi-major axis, in SI metres.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MajorAxis")]
+        public double MajorAxis { get; set; }
+
+        /// <summary>
+        /// Full minor-axis diameter, twice the shared uncertainty ellipse semi-minor axis, in SI metres.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MinorAxis")]
+        public double MinorAxis { get; set; }
+
+        /// <summary>
+        /// Radians clockwise from true north toward east for the horizontal ellipse major axis. An axis is unoriented, modulo pi.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("OrientationAngle")]
+        public double OrientationAngle { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ReferencedTrajectoryStation
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("AlongHoleDepth")]
+        public double AlongHoleDepth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OriginWgs84Depth")]
+        public double OriginWgs84Depth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OriginNativeAlongHoleDepth")]
+        public double OriginNativeAlongHoleDepth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Station")]
+        public SurveyStation Station { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    /// <summary>
+    /// North reference for an observed clockwise azimuth. TrueNorth is WGS84 geodetic north projected onto the plane perpendicular to the selected vertical; MagneticNorth is the evaluated geomagnetic-field vector projected onto that plane; InheritRun uses the survey run default.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyAzimuthReference
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"TrueNorth")]
+        TrueNorth = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MagneticNorth")]
+        MagneticNorth = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"InheritRun")]
+        InheritRun = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyCorrectionSource
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"None")]
+        None = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Computed")]
+        Computed = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Supplied")]
+        Supplied = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ManualOverride")]
+        ManualOverride = 3,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyCorrectionStatus
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"NotRequired")]
+        NotRequired = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Pending")]
+        Pending = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Completed")]
+        Completed = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Failed")]
+        Failed = 3,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyCorrectionTimeMethod
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"NotRequired")]
+        NotRequired = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"StationMeasurementTime")]
+        StationMeasurementTime = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"RunAcquisitionMidpoint")]
+        RunAcquisitionMidpoint = 2,
+
+    }
+
+    /// <summary>
+    /// Geomagnetic model used for magnetic-north correction: Automatic selects WMM2025 for 2025 or later and IGRF14 for earlier instants; an explicit value pins that model.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyGeomagneticModel
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Automatic")]
+        Automatic = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"WMM2025")]
+        WMM2025 = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"IGRF14")]
+        IGRF14 = 2,
+
+    }
+
+    /// <summary>
+    /// Reference vertical for an observed inclination. GeodeticVertical is the local positive-down axis perpendicular to the WGS84 ellipsoid (opposite its outward normal); GravityVertical follows the local total-gravity vector; InheritRun uses the survey run default.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyInclinationReference
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GeodeticVertical")]
+        GeodeticVertical = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GravityVertical")]
+        GravityVertical = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"InheritRun")]
+        InheritRun = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SurveyMeasurement
+    {
+        /// <summary>
+        /// Stable UUID for this measurement, independent of list position.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MeasurementID")]
+        public System.Guid MeasurementID { get; set; }
+
+        /// <summary>
+        /// Measured for an instrument observation; Extrapolated only for the final caller-supplied bit station in LastStationAlreadyExtrapolated mode.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Origin")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyMeasurementOrigin Origin { get; set; }
+
+        /// <summary>
+        /// Measured or along-hole depth in canonical SI metres.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MD")]
+        public double? MD { get; set; }
+
+        /// <summary>
+        /// Canonical inclination from the local WGS84 geodetic-down axis in SI radians, after reference correction.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Inclination")]
+        public double? Inclination { get; set; }
+
+        /// <summary>
+        /// Canonical clockwise azimuth from WGS84 geodetic true north in SI radians, after reference correction.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Azimuth")]
+        public double? Azimuth { get; set; }
+
+        /// <summary>
+        /// Original observed inclination in SI radians before transformation from InclinationReference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ObservedInclination")]
+        public double? ObservedInclination { get; set; }
+
+        /// <summary>
+        /// Original observed clockwise azimuth in SI radians before transformation from AzimuthReference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ObservedAzimuth")]
+        public double? ObservedAzimuth { get; set; }
+
+        /// <summary>
+        /// UTC measurement instant. Required for magnetic correction when the survey run has no complete acquisition interval.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MeasurementTimeUtc")]
+        public System.DateTimeOffset? MeasurementTimeUtc { get; set; }
+
+        /// <summary>
+        /// Reference vertical for an observed inclination. GeodeticVertical is the local positive-down axis perpendicular to the WGS84 ellipsoid (opposite its outward normal); GravityVertical follows the local total-gravity vector; InheritRun uses the survey run default.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("InclinationReference")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyInclinationReference InclinationReference { get; set; }
+
+        /// <summary>
+        /// North reference for an observed clockwise azimuth. TrueNorth is WGS84 geodetic north projected onto the plane perpendicular to the selected vertical; MagneticNorth is the evaluated geomagnetic-field vector projected onto that plane; InheritRun uses the survey run default.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AzimuthReference")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyAzimuthReference AzimuthReference { get; set; }
+
+        /// <summary>
+        /// Frozen correction result and Earth-model provenance used to derive canonical inclination and azimuth.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Correction")]
+        public SurveyMeasurementCorrection Correction { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Annotation")]
+        public string Annotation { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SurveyMeasurementCorrection
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Source")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyCorrectionSource Source { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Status")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyCorrectionStatus Status { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Message")]
+        public string Message { get; set; }
+
+        /// <summary>
+        /// Signed canonical-minus-observed inclination correction in SI radians.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AppliedInclinationCorrection")]
+        public double? AppliedInclinationCorrection { get; set; }
+
+        /// <summary>
+        /// Shortest signed canonical-minus-observed azimuth correction in SI radians.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AppliedAzimuthCorrection")]
+        public double? AppliedAzimuthCorrection { get; set; }
+
+        /// <summary>
+        /// Evaluated magnetic declination clockwise from geodetic true north in SI radians.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MagneticDeclination")]
+        public double? MagneticDeclination { get; set; }
+
+        /// <summary>
+        /// North component of total gravity in the local WGS84 north-east-down frame, in SI metres per second squared.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("GravityNorth")]
+        public double? GravityNorth { get; set; }
+
+        /// <summary>
+        /// East component of total gravity in the local WGS84 north-east-down frame, in SI metres per second squared.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("GravityEast")]
+        public double? GravityEast { get; set; }
+
+        /// <summary>
+        /// Down component of total gravity in the local WGS84 north-east-down frame, in SI metres per second squared.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("GravityDown")]
+        public double? GravityDown { get; set; }
+
+        /// <summary>
+        /// WGS84 geodetic latitude used for the correction, in SI radians.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("EvaluatedLatitude")]
+        public double? EvaluatedLatitude { get; set; }
+
+        /// <summary>
+        /// WGS84 geodetic longitude used for the correction, in SI radians.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("EvaluatedLongitude")]
+        public double? EvaluatedLongitude { get; set; }
+
+        /// <summary>
+        /// Depth used for the correction in SI metres, positive downward from the WGS84 reference ellipsoid.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("EvaluatedDepthWgs84")]
+        public double? EvaluatedDepthWgs84 { get; set; }
+
+        /// <summary>
+        /// UTC instant used to evaluate the geomagnetic model.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("EvaluationTimeUtc")]
+        public System.DateTimeOffset? EvaluationTimeUtc { get; set; }
+
+        /// <summary>
+        /// How EvaluationTimeUtc was selected: station measurement time, survey-run acquisition midpoint, or not required.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TimeMethod")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyCorrectionTimeMethod TimeMethod { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GravityModelID")]
+        public string GravityModelID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GravityModelVersion")]
+        public string GravityModelVersion { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GravityCoefficientSHA256")]
+        public string GravityCoefficientSHA256 { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GeomagneticModelID")]
+        public string GeomagneticModelID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GeomagneticMetadataSHA256")]
+        public string GeomagneticMetadataSHA256 { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("GeomagneticCoefficientSHA256")]
+        public string GeomagneticCoefficientSHA256 { get; set; }
+
+        /// <summary>
+        /// Opaque version of the reference-correction algorithm.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AlgorithmVersion")]
+        public string AlgorithmVersion { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyMeasurementOrigin
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Measured")]
+        Measured = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Extrapolated")]
+        Extrapolated = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SurveyRun
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        /// <summary>
+        /// Earliest known survey-run acquisition instant in UTC; required together with AcquisitionEndUtc when station times are absent for magnetic correction.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AcquisitionStartUtc")]
+        public System.DateTimeOffset? AcquisitionStartUtc { get; set; }
+
+        /// <summary>
+        /// Latest known survey-run acquisition instant in UTC; required together with AcquisitionStartUtc when station times are absent for magnetic correction.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AcquisitionEndUtc")]
+        public System.DateTimeOffset? AcquisitionEndUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldID")]
+        public System.Guid? FieldID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ClusterID")]
+        public System.Guid? ClusterID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellID")]
+        public System.Guid? WellID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid WellBoreID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyInstrumentID")]
+        public System.Guid SurveyInstrumentID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyRunType")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyRunType SurveyRunType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationType")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public TrajectoryCalculationType CalculationType { get; set; }
+
+        /// <summary>
+        /// Reference vertical for an observed inclination. GeodeticVertical is the local positive-down axis perpendicular to the WGS84 ellipsoid (opposite its outward normal); GravityVertical follows the local total-gravity vector; InheritRun uses the survey run default. InheritRun is forbidden for a run-level default.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("DefaultInclinationReference")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyInclinationReference DefaultInclinationReference { get; set; }
+
+        /// <summary>
+        /// North reference for an observed clockwise azimuth. TrueNorth is WGS84 geodetic north projected onto the plane perpendicular to the selected vertical; MagneticNorth is the evaluated geomagnetic-field vector projected onto that plane; InheritRun uses the survey run default. InheritRun is forbidden for a run-level default.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("DefaultAzimuthReference")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyAzimuthReference DefaultAzimuthReference { get; set; }
+
+        /// <summary>
+        /// Geomagnetic model selection used by measurements whose effective azimuth reference is MagneticNorth.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("GeomagneticModel")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyGeomagneticModel GeomagneticModel { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ParentSurveyRunID")]
+        public System.Guid? ParentSurveyRunID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationState")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public CalculationState CalculationState { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationProgress")]
+        public double CalculationProgress { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationMessage")]
+        public string CalculationMessage { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyRunIdentityAssignments")]
+        public System.Collections.Generic.List<TrajectoryIdentityAssignment> SurveyRunIdentityAssignments { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyRunFeatureAssignments")]
+        public System.Collections.Generic.List<TrajectoryFeatureAssignment> SurveyRunFeatureAssignments { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TieInPoint")]
+        public SurveyStation TieInPoint { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyMeasurementList")]
+        public System.Collections.Generic.List<SurveyMeasurement> SurveyMeasurementList { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyStationList")]
+        public System.Collections.Generic.List<SurveyStation> SurveyStationList { get; set; }
+
+        /// <summary>
+        /// Optional terminal extrapolation from the final measurement-tool station to the bit. When present, exactly one terminal calculated or caller-identified extrapolated station is included in the calculated SurveyStationList.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("BitExtrapolation")]
+        public SurveyRunBitExtrapolation BitExtrapolation { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SurveyRunBitExtrapolation
+    {
+        /// <summary>
+        /// CalculateFromLastMeasurement derives a terminal station on the server; LastStationAlreadyExtrapolated requires exactly the final submitted row to have Origin Extrapolated.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Mode")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurveyRunBitExtrapolationMode Mode { get; set; }
+
+        /// <summary>
+        /// Distance-to-bit elevation of the measurement tool relative to the bit front face, positive upward in canonical SI metres; used as the positive along-hole MD increment to the bit.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MeasurementToolToBitDistance")]
+        [System.ComponentModel.DataAnnotations.Range(0.0D, double.MaxValue)]
+        public double MeasurementToolToBitDistance { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyRunBitExtrapolationMode
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"CalculateFromLastMeasurement")]
+        CalculateFromLastMeasurement = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"LastStationAlreadyExtrapolated")]
+        LastStationAlreadyExtrapolated = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurveyRunType
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Actual")]
+        Actual = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Planned")]
+        Planned = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SurveyStationChunk
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("OwnerID")]
+        public System.Guid OwnerID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OwnerType")]
+        public string OwnerType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ChunkIndex")]
+        public int ChunkIndex { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("StationCount")]
+        public int StationCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("StartMD")]
+        public double? StartMD { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("EndMD")]
+        public double? EndMD { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyStationList")]
+        public System.Collections.Generic.List<SurveyStation> SurveyStationList { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class Trajectory
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldID")]
+        public System.Guid? FieldID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ClusterID")]
+        public System.Guid? ClusterID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellID")]
+        public System.Guid? WellID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid WellBoreID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrajectoryType")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public TrajectoryType TrajectoryType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsDefinitive")]
+        public bool IsDefinitive { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationState")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public CalculationState CalculationState { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationProgress")]
+        public double CalculationProgress { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationMessage")]
+        public string CalculationMessage { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrajectoryIdentityAssignments")]
+        public System.Collections.Generic.List<TrajectoryIdentityAssignment> TrajectoryIdentityAssignments { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrajectoryFeatureAssignments")]
+        public System.Collections.Generic.List<TrajectoryFeatureAssignment> TrajectoryFeatureAssignments { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyRunSectionList")]
+        public System.Collections.Generic.List<TrajectorySurveyRunSection> SurveyRunSectionList { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyStationList")]
+        public System.Collections.Generic.List<SurveyStation> SurveyStationList { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TieInPoint")]
+        public SurveyStation TieInPoint { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationType")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public TrajectoryCalculationType CalculationType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("MDStep")]
+        public double MDStep { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryBatchCatalogDependencies
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Identities")]
+        public System.Collections.Generic.List<TrajectoryIdentity> Identities { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FeatureCategories")]
+        public System.Collections.Generic.List<TrajectoryFeatureCategory> FeatureCategories { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryBatchCatalogMapping
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Catalog")]
+        public string Catalog { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SourceID")]
+        public System.Guid SourceID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LocalID")]
+        public System.Guid LocalID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Resolution")]
+        public string Resolution { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum TrajectoryBatchCatalogRestorePolicy
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unspecified")]
+        Unspecified = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MapExisting")]
+        MapExisting = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MapOrCreateMissing")]
+        MapOrCreateMissing = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryBatchError
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("PositionIndex")]
+        public int? PositionIndex { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Property")]
+        public string Property { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Code")]
+        public string Code { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Message")]
+        public string Message { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryBatchErrorEnvelope
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Error")]
+        public string Error { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Message")]
+        public string Message { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Errors")]
+        public System.Collections.Generic.List<TrajectoryBatchError> Errors { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryBatchExportDocument
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("FormatIdentifier")]
+        public string FormatIdentifier { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SchemaVersion")]
+        public int SchemaVersion { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ExportedAtUtc")]
+        public System.DateTimeOffset ExportedAtUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CatalogDependencies")]
+        public TrajectoryBatchCatalogDependencies CatalogDependencies { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyRuns")]
+        public System.Collections.Generic.List<SurveyRun> SurveyRuns { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Trajectories")]
+        public System.Collections.Generic.List<Trajectory> Trajectories { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("AntiCollisionPolicyRevisions")]
+        public System.Collections.Generic.List<AntiCollisionPolicyRevision> AntiCollisionPolicyRevisions { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldAntiCollisionPolicyAssignments")]
+        public System.Collections.Generic.List<FieldAntiCollisionPolicyAssignment> FieldAntiCollisionPolicyAssignments { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryBatchExportRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Scope")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public TrajectoryBatchExportScope Scope { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyRunIDs")]
+        public System.Collections.Generic.List<System.Guid> SurveyRunIDs { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrajectoryIDs")]
+        public System.Collections.Generic.List<System.Guid> TrajectoryIDs { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum TrajectoryBatchExportScope
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unspecified")]
+        Unspecified = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"All")]
+        All = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Selected")]
+        Selected = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum TrajectoryBatchRestoreConflictPolicy
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unspecified")]
+        Unspecified = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"FailIfExists")]
+        FailIfExists = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ReplaceExisting")]
+        ReplaceExisting = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryBatchRestoreRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ConflictPolicy")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public TrajectoryBatchRestoreConflictPolicy ConflictPolicy { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CatalogPolicy")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public TrajectoryBatchCatalogRestorePolicy CatalogPolicy { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("AllowNormalizedNameMapping")]
+        public bool AllowNormalizedNameMapping { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Document")]
+        public TrajectoryBatchExportDocument Document { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryBatchRestoreResponse
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("RestoredAtUtc")]
+        public System.DateTimeOffset RestoredAtUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreatedSurveyRunCount")]
+        public int CreatedSurveyRunCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ReplacedSurveyRunCount")]
+        public int ReplacedSurveyRunCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreatedTrajectoryCount")]
+        public int CreatedTrajectoryCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ReplacedTrajectoryCount")]
+        public int ReplacedTrajectoryCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreatedCatalogDefinitionCount")]
+        public int CreatedCatalogDefinitionCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreatedAntiCollisionPolicyRevisionCount")]
+        public int CreatedAntiCollisionPolicyRevisionCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ReplacedAntiCollisionPolicyRevisionCount")]
+        public int ReplacedAntiCollisionPolicyRevisionCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreatedFieldPolicyAssignmentCount")]
+        public int CreatedFieldPolicyAssignmentCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ReplacedFieldPolicyAssignmentCount")]
+        public int ReplacedFieldPolicyAssignmentCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CatalogMappings")]
+        public System.Collections.Generic.List<TrajectoryBatchCatalogMapping> CatalogMappings { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyRunIDs")]
+        public System.Collections.Generic.List<System.Guid> SurveyRunIDs { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrajectoryIDs")]
+        public System.Collections.Generic.List<System.Guid> TrajectoryIDs { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("AntiCollisionPolicyRevisionIDs")]
+        public System.Collections.Generic.List<System.Guid> AntiCollisionPolicyRevisionIDs { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldAntiCollisionPolicyAssignmentIDs")]
+        public System.Collections.Generic.List<System.Guid> FieldAntiCollisionPolicyAssignmentIDs { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryDiscoveryPage
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Items")]
+        public System.Collections.Generic.List<TrajectoryLight> Items { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Offset")]
+        public int Offset { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Limit")]
+        public int Limit { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TotalCount")]
+        public int TotalCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("NextOffset")]
+        public int? NextOffset { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryExternalReferenceAuditRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Scope")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public ExternalReferenceAuditScope Scope { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrajectoryIDs")]
+        public System.Collections.Generic.List<System.Guid> TrajectoryIDs { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Offset")]
+        public int Offset { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Limit")]
+        public int Limit { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryExternalReferenceAuditResult
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("CheckedAtUtc")]
+        public System.DateTimeOffset CheckedAtUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Total")]
+        public int Total { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Offset")]
+        public int Offset { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Limit")]
+        public int Limit { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ValidCount")]
+        public int ValidCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("InvalidCount")]
+        public int InvalidCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UnavailableCount")]
+        public int UnavailableCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Items")]
+        public System.Collections.Generic.List<TrajectoryExternalReferenceValidation> Items { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryExternalReferenceValidation
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrajectoryID")]
+        public System.Guid TrajectoryID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldID")]
+        public System.Guid? FieldID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ClusterID")]
+        public System.Guid? ClusterID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellID")]
+        public System.Guid? WellID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid WellBoreID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldExists")]
+        public bool? FieldExists { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ClusterExists")]
+        public bool? ClusterExists { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellExists")]
+        public bool? WellExists { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreExists")]
+        public bool? WellBoreExists { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Status")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public ExternalReferenceValidationStatus Status { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CheckedAtUtc")]
+        public System.DateTimeOffset CheckedAtUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Issues")]
+        public System.Collections.Generic.List<ExternalReferenceIssue> Issues { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryFeatureAssignment
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ID")]
+        public System.Guid ID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FeatureCategoryID")]
+        public System.Guid? FeatureCategoryID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FeatureOptionID")]
+        public System.Guid? FeatureOptionID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FromDate")]
+        public System.DateTimeOffset? FromDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ToDate")]
+        public System.DateTimeOffset? ToDate { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryFeatureCategory
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsExclusive")]
+        public bool IsExclusive { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("HasValidityPeriod")]
+        public bool HasValidityPeriod { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Options")]
+        public System.Collections.Generic.List<TrajectoryFeatureOption> Options { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryFeatureOption
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ID")]
+        public System.Guid ID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryHorizontalEllipseEvaluation
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Projection")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public UncertaintyProjectionPlane Projection { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("AlongHoleDepth")]
+        public double AlongHoleDepth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ConfidenceFactor")]
+        public double ConfidenceFactor { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("HorizontalEllipse")]
+        public HorizontalSurveyUncertaintyEllipse HorizontalEllipse { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryIdentity
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryIdentityAssignment
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ID")]
+        public System.Guid ID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IdentityID")]
+        public System.Guid? IdentityID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Value")]
+        public string Value { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryLight
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FieldID")]
+        public System.Guid? FieldID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ClusterID")]
+        public System.Guid? ClusterID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellID")]
+        public System.Guid? WellID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid WellBoreID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TrajectoryType")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public TrajectoryType TrajectoryType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsDefinitive")]
+        public bool IsDefinitive { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationState")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public CalculationState CalculationState { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationProgress")]
+        public double CalculationProgress { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CalculationMessage")]
+        public string CalculationMessage { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectorySearchResult
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Offset")]
+        public int Offset { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Limit")]
+        public int Limit { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TotalCount")]
+        public int TotalCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Items")]
+        public System.Collections.Generic.List<TrajectoryLight> Items { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectorySurveyRunSection
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurveyRunID")]
+        public System.Guid SurveyRunID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("StartAbscissa")]
+        public double StartAbscissa { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum TrajectoryType
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Actual")]
+        Actual = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Planned")]
+        Planned = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TrajectoryVerticalEllipseEvaluation
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Projection")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public UncertaintyProjectionPlane Projection { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("AlongHoleDepth")]
+        public double AlongHoleDepth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ConfidenceFactor")]
+        public double ConfidenceFactor { get; set; }
+
+        /// <summary>
+        /// True-north-clockwise section azimuth in radians, selected from the first to the last horizontally separated source trajectory stations. The full source path determines the plane, including when sampling one MD.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("VerticalSectionAzimuth")]
+        public double VerticalSectionAzimuth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("VerticalEllipse")]
+        public VerticalSurveyUncertaintyEllipse VerticalEllipse { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum UncertaintyProjectionPlane
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Horizontal")]
+        Horizontal = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Vertical")]
+        Vertical = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Perpendicular")]
+        Perpendicular = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class VerticalSurveyUncertaintyEllipse
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("SemiMajorAxis")]
+        public double SemiMajorAxis { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SemiMinorAxis")]
+        public double SemiMinorAxis { get; set; }
+
+        /// <summary>
+        /// Full major-axis diameter, twice the shared uncertainty ellipse semi-major axis, in SI metres.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MajorAxis")]
+        public double MajorAxis { get; set; }
+
+        /// <summary>
+        /// Full minor-axis diameter, twice the shared uncertainty ellipse semi-minor axis, in SI metres.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MinorAxis")]
+        public double MinorAxis { get; set; }
+
+        /// <summary>
+        /// Radians in the fixed vertical-section ellipse axis convention: major-axis direction (-sin(phi),cos(phi)) in (section distance, positive-down TVD). An axis is unoriented, modulo pi. This is not an azimuth relative to north or the wellbore tangent.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("OrientationAngle")]
+        public double OrientationAngle { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -10050,6 +16552,1893 @@ namespace DWIS.ContextualData.WellBoreSelector.ModelShared
             set { _additionalProperties = value; }
         }
 
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ScalarDrillingProperty
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("DiracDistributionValue")]
+        public DiracDistribution DiracDistributionValue { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DiracDistribution
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("MinValue")]
+        public double MinValue { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("MaxValue")]
+        public double MaxValue { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Value")]
+        public double? Value { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class BoreHoleSize
+    {
+        /// <summary>
+        /// Stable component UUID scoped to the containing architecture; not a physical dimension.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid ComponentID { get; set; }
+
+        /// <summary>
+        /// Diameter of the borehole over the applicable interval. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("HoleSize")]
+        public GaussianDrillingProperty HoleSize { get; set; }
+
+        /// <summary>
+        /// Additive geometric extent of a physical interval; distinct from a position coordinate. Extent of the interval to which a borehole diameter applies. Physical quantity: LengthStandard; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Length")]
+        public GaussianDrillingProperty Length { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class CasingSection
+    {
+        /// <summary>
+        /// Stable component UUID scoped to the containing architecture; not a physical dimension.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid ComponentID { get; set; }
+
+        /// <summary>
+        /// Curvilinear abscissa along an oriented wellbore path, expressed as accumulated arc length from the origin established by the applicable reference convention. It may be planned, calculated, interpolated or measured. Along-hole location of the casing top; bind to AlongHoleDepth under the canonical drilling profile. Physical quantity: DepthDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions. Zero along-hole depth is the intersection of the oriented wellbore path, or its defined extension, with the WGS84 ellipsoid. The coordinate is signed accumulated arc length from that intersection along the declared path orientation. It is not obtained by adding or subtracting a vertical elevation offset. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TopDepth")]
+        public GaussianDrillingProperty TopDepth { get; set; }
+
+        /// <summary>
+        /// Additive geometric extent of a physical interval; distinct from a position coordinate. Extent of the specified construction section or component interval. Physical quantity: LengthStandard; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Length")]
+        public GaussianDrillingProperty Length { get; set; }
+
+        /// <summary>
+        /// Curvilinear abscissa along an oriented wellbore path, expressed as accumulated arc length from the origin established by the applicable reference convention. It may be planned, calculated, interpolated or measured. Along-hole location of the top of cement; bind to AlongHoleDepth under the canonical drilling profile. Physical quantity: DepthDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions. Zero along-hole depth is the intersection of the oriented wellbore path, or its defined extension, with the WGS84 ellipsoid. The coordinate is signed accumulated arc length from that intersection along the declared path orientation. It is not obtained by adding or subtracting a vertical elevation offset. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TopCementDepth")]
+        public GaussianDrillingProperty TopCementDepth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingSectionElements")]
+        public System.Collections.Generic.List<CasingSectionElement> CasingSectionElements { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingSectionSizeTable")]
+        public System.Collections.Generic.List<BoreHoleSize> CasingSectionSizeTable { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class CasingSectionElement
+    {
+        /// <summary>
+        /// Stable component UUID scoped to the containing architecture; not a physical dimension.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid ComponentID { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Diameter of the exterior body. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("BodyOD")]
+        public GaussianDrillingProperty BodyOD { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Diameter of the interior opening; SideElement.ID denotes this dimension, not an identifier. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("BodyID")]
+        public GaussianDrillingProperty BodyID { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Exterior diameter at the collar. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CollarOD")]
+        public GaussianDrillingProperty CollarOD { get; set; }
+
+        /// <summary>
+        /// Additive geometric extent of a physical interval; distinct from a position coordinate. Extent of a casing joint. Physical quantity: LengthStandard; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("JointLength")]
+        public GaussianDrillingProperty JointLength { get; set; }
+
+        /// <summary>
+        /// Additive geometric extent of a physical interval; distinct from a position coordinate. Extent of the specified construction section or component interval. Physical quantity: LengthStandard; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("SectionLength")]
+        public GaussianDrillingProperty SectionLength { get; set; }
+
+        /// <summary>
+        /// Maximum allowable path curvature for the applicable component, not a survey angle or observed curvature. Physical quantity: CurvatureDrilling; SI unit: radians per metre (rad/m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MaxDLS")]
+        public ScalarDrillingProperty MaxDLS { get; set; }
+
+        /// <summary>
+        /// Textual connection or thread specification; distinct from network connectivity.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ConnectionType")]
+        public string ConnectionType { get; set; }
+
+        /// <summary>
+        /// Material grade designation interpreted within its material and applicable standard; text alone does not determine a strength value.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Grade")]
+        public string Grade { get; set; }
+
+        /// <summary>
+        /// Mass density of component material; not inferred from an environmental fluid classification. Physical quantity: MassDensityDrilling; SI unit: kg/m³. GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MaterialDensity")]
+        public GaussianDrillingProperty MaterialDensity { get; set; }
+
+        /// <summary>
+        /// Young modulus describing elastic stiffness of material, not absolute pressure. Physical quantity: ElasticModulus; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("YoungModulus")]
+        public GaussianDrillingProperty YoungModulus { get; set; }
+
+        /// <summary>
+        /// Mass per unit length, including collars where specified; not force per length. Physical quantity: MassGradientPerLengthDrilling; SI unit: kilograms per metre (kg/m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LinearWeight")]
+        public GaussianDrillingProperty LinearWeight { get; set; }
+
+        /// <summary>
+        /// Material tensile strength expressed as stress, distinct from component axial force capacity. Physical quantity: DrillStemMaterialStrengthDrilling; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TensileStrength")]
+        public GaussianDrillingProperty TensileStrength { get; set; }
+
+        /// <summary>
+        /// Torque limit of a specified component or connection; not shear stress. Physical quantity: TorqueDrilling; SI unit: N·m. GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TorsionalStrength")]
+        public GaussianDrillingProperty TorsionalStrength { get; set; }
+
+        /// <summary>
+        /// Limiting internal-minus-external pressure difference for the specified component and burst criterion. Physical quantity: PressureDrilling; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("BurstPressure")]
+        public GaussianDrillingProperty BurstPressure { get; set; }
+
+        /// <summary>
+        /// Limiting external-minus-internal pressure difference for the specified component and collapse criterion. Physical quantity: PressureDrilling; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CollapsePressure")]
+        public GaussianDrillingProperty CollapsePressure { get; set; }
+
+        /// <summary>
+        /// Material stress at the stated yield criterion; distinct from ultimate tensile strength. Physical quantity: DrillStemMaterialStrengthDrilling; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("YieldStress")]
+        public GaussianDrillingProperty YieldStress { get; set; }
+
+        /// <summary>
+        /// Recommended assembly make-up torque for the specified connection; not torsional failure capacity. Physical quantity: TorqueDrilling; SI unit: N·m. The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MakeUpTorqueRecommended")]
+        public ScalarDrillingProperty MakeUpTorqueRecommended { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class DeepestCasingShoeResult
+    {
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectureID")]
+        public System.Guid WellBoreArchitectureID { get; set; }
+
+        /// <summary>
+        /// Along-hole abscissa of the bottom boundary of a casing section. Physical quantity: DepthDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference. Zero along-hole depth is the intersection of the oriented wellbore path, or its defined extension, with the WGS84 ellipsoid. The coordinate is signed accumulated arc length from that intersection along the declared path orientation. It is not obtained by adding or subtracting a vertical elevation offset. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AlongHoleDepth")]
+        public double AlongHoleDepth { get; set; }
+
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingSectionComponentID")]
+        public System.Guid CasingSectionComponentID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("RadialProfile")]
+        public WellboreRadialProfile RadialProfile { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ElementConnectivity
+    {
+        /// <summary>
+        /// Stable component UUID scoped to the containing architecture; not a physical dimension.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid ComponentID { get; set; }
+
+        /// <summary>
+        /// Pipe, hose, valve, choke or pump forming part of a side-circuit network.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("UpstreamElement")]
+        public SideElement UpstreamElement { get; set; }
+
+        /// <summary>
+        /// Pipe, hose, valve, choke or pump forming part of a side-circuit network.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("DownstreamElement")]
+        public SideElement DownstreamElement { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum FluidType
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Air")]
+        Air = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Water")]
+        Water = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class OpenHoleSection
+    {
+        /// <summary>
+        /// Stable component UUID scoped to the containing architecture; not a physical dimension.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid ComponentID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("HoleSizes")]
+        public System.Collections.Generic.List<BoreHoleSize> HoleSizes { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class RadialBoundary
+    {
+        /// <summary>
+        /// Diameter of a circular boundary in a wellbore radial construction profile. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Diameter")]
+        public double Diameter { get; set; }
+
+        /// <summary>
+        /// Diameter of a circular boundary in a wellbore radial construction profile. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("DiameterStandardDeviation")]
+        public double? DiameterStandardDeviation { get; set; }
+
+        /// <summary>
+        /// Finite denomination of the physical construction meaning represented by a radial-profile boundary.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Kind")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public RadialBoundaryKind Kind { get; set; }
+
+        /// <summary>
+        /// Finite material or occupancy classification immediately adjacent to a radial construction boundary.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MaterialOutside")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public RadialMaterialKind MaterialOutside { get; set; }
+
+        /// <summary>
+        /// Finite material or occupancy classification immediately adjacent to a radial construction boundary.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MaterialInside")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public RadialMaterialKind MaterialInside { get; set; }
+
+        /// <summary>
+        /// Curvilinear abscissa along an oriented wellbore path, expressed as accumulated arc length from the origin established by the applicable reference convention. It may be planned, calculated, interpolated or measured. Role played by the inclusive start coordinate of a spatial or curvilinear interval in the coordinate concept and reference declared by the value. Physical quantity: DepthDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference. Zero along-hole depth is the intersection of the oriented wellbore path, or its defined extension, with the WGS84 ellipsoid. The coordinate is signed accumulated arc length from that intersection along the declared path orientation. It is not obtained by adding or subtracting a vertical elevation offset. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("IntervalTop")]
+        public double IntervalTop { get; set; }
+
+        /// <summary>
+        /// Curvilinear abscissa along an oriented wellbore path, expressed as accumulated arc length from the origin established by the applicable reference convention. It may be planned, calculated, interpolated or measured. Role played by the exclusive end coordinate of a spatial or curvilinear half-open interval in the coordinate concept and reference declared by the value. Physical quantity: DepthDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference. Zero along-hole depth is the intersection of the oriented wellbore path, or its defined extension, with the WGS84 ellipsoid. The coordinate is signed accumulated arc length from that intersection along the declared path orientation. It is not obtained by adding or subtracting a vertical elevation offset. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("IntervalBottom")]
+        public double IntervalBottom { get; set; }
+
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("SourceSectionComponentID")]
+        public System.Guid SourceSectionComponentID { get; set; }
+
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("SourceComponentID")]
+        public System.Guid SourceComponentID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SourceDescription")]
+        public string SourceDescription { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Diameter of the exterior body. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingOuterDiameter")]
+        public double? CasingOuterDiameter { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Diameter of the interior opening; SideElement.ID denotes this dimension, not an identifier. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingInnerDiameter")]
+        public double? CasingInnerDiameter { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Exterior diameter at the collar. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingCollarOuterDiameter")]
+        public double? CasingCollarOuterDiameter { get; set; }
+
+        /// <summary>
+        /// Material grade designation interpreted within its material and applicable standard; text alone does not determine a strength value.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingGrade")]
+        public string CasingGrade { get; set; }
+
+        /// <summary>
+        /// Mass density of component material; not inferred from an environmental fluid classification. Physical quantity: MassDensityDrilling; SI unit: kg/m³. GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingMaterialDensity")]
+        public double? CasingMaterialDensity { get; set; }
+
+        /// <summary>
+        /// Mass per unit length, including collars where specified; not force per length. Physical quantity: MassGradientPerLengthDrilling; SI unit: kilograms per metre (kg/m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingLinearMassDensity")]
+        public double? CasingLinearMassDensity { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum RadialBoundaryKind
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"BoreholeWall")]
+        BoreholeWall = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"CementOuter")]
+        CementOuter = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"CementInner")]
+        CementInner = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"CasingOuter")]
+        CasingOuter = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"CasingInner")]
+        CasingInner = 4,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum RadialMaterialKind
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Formation")]
+        Formation = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Cement")]
+        Cement = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Casing")]
+        Casing = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"InternalFluidOrVoid")]
+        InternalFluidOrVoid = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 4,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SideConnector
+    {
+        /// <summary>
+        /// Stable component UUID scoped to the containing architecture; not a physical dimension.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid ComponentID { get; set; }
+
+        /// <summary>
+        /// Curvilinear position along the host component from its top, increasing downward along the host; not a global wellbore depth. Physical quantity: LengthStandard; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions. Zero is the top of the identified host component; the coordinate increases downward along its path. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Position")]
+        public GaussianDrillingProperty Position { get; set; }
+
+        /// <summary>
+        /// Negative ellipsoidal height measured along the ellipsoid normal: positive inward from the reference ellipsoid. Vertical location of a side connector; bind to EllipsoidalDepth under the canonical drilling profile. Physical quantity: DepthDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions. WGS84 geodetic latitude/longitude with Greenwich origin and ellipsoidal depth positive downward; not a fully specified terrestrial frame realization or epoch. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("VerticalDepth")]
+        public GaussianDrillingProperty VerticalDepth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FirstSideElement")]
+        public SideElement FirstSideElement { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ElementConnectivities")]
+        public System.Collections.Generic.List<ElementConnectivity> ElementConnectivities { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SideElement
+    {
+        /// <summary>
+        /// Stable component UUID scoped to the containing architecture; not a physical dimension.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid ComponentID { get; set; }
+
+        /// <summary>
+        /// Human-readable name of a resource, definition or option; not necessarily unique or stable.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Finite classification of side circuit element kind.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Type")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SideElementType Type { get; set; }
+
+        /// <summary>
+        /// Additive geometric extent of a physical interval; distinct from a position coordinate. Extent of the specified construction section or component interval. Physical quantity: LengthStandard; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Length")]
+        public GaussianDrillingProperty Length { get; set; }
+
+        /// <summary>
+        /// Negative ellipsoidal height measured along the ellipsoid normal: positive inward from the reference ellipsoid. Role of the shallower vertical depth limit of a delineated domain; distinct from measured depth along a borehole. Physical quantity: DepthDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions. WGS84 geodetic latitude/longitude with Greenwich origin and ellipsoidal depth positive downward; not a fully specified terrestrial frame realization or epoch. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TopVerticalDepth")]
+        public GaussianDrillingProperty TopVerticalDepth { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Diameter of the exterior body. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("OD")]
+        public GaussianDrillingProperty OD { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Diameter of the interior opening; SideElement.ID denotes this dimension, not an identifier. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ID")]
+        public GaussianDrillingProperty ID { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SideElementType
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Pipe")]
+        Pipe = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Hose")]
+        Hose = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"GateValve")]
+        GateValve = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Choke")]
+        Choke = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Pump")]
+        Pump = 5,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SurfaceSection
+    {
+        /// <summary>
+        /// Stable component UUID scoped to the containing architecture; not a physical dimension.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ComponentID")]
+        public System.Guid ComponentID { get; set; }
+
+        /// <summary>
+        /// Finite classification of surface section kind.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Type")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public SurfaceSectionType Type { get; set; }
+
+        /// <summary>
+        /// Additive geometric extent of a physical interval; distinct from a position coordinate. Extent of the specified construction section or component interval. Physical quantity: LengthStandard; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("SectionLength")]
+        public GaussianDrillingProperty SectionLength { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Diameter of the exterior body. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("BodyOD")]
+        public GaussianDrillingProperty BodyOD { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Diameter of the interior opening; SideElement.ID denotes this dimension, not an identifier. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("BodyID")]
+        public GaussianDrillingProperty BodyID { get; set; }
+
+        /// <summary>
+        /// Textual connection or thread specification; distinct from network connectivity.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ConnectionType")]
+        public string ConnectionType { get; set; }
+
+        /// <summary>
+        /// Material grade designation interpreted within its material and applicable standard; text alone does not determine a strength value.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Grade")]
+        public string Grade { get; set; }
+
+        /// <summary>
+        /// Mass density of component material; not inferred from an environmental fluid classification. Physical quantity: MassDensityDrilling; SI unit: kg/m³. GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MaterialDensity")]
+        public GaussianDrillingProperty MaterialDensity { get; set; }
+
+        /// <summary>
+        /// Young modulus describing elastic stiffness of material, not absolute pressure. Physical quantity: ElasticModulus; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("YoungModulus")]
+        public GaussianDrillingProperty YoungModulus { get; set; }
+
+        /// <summary>
+        /// Mass per unit length, including collars where specified; not force per length. Physical quantity: MassGradientPerLengthDrilling; SI unit: kilograms per metre (kg/m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LinearWeight")]
+        public GaussianDrillingProperty LinearWeight { get; set; }
+
+        /// <summary>
+        /// Material tensile strength expressed as stress, distinct from component axial force capacity. Physical quantity: DrillStemMaterialStrengthDrilling; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TensileStrength")]
+        public GaussianDrillingProperty TensileStrength { get; set; }
+
+        /// <summary>
+        /// Limiting internal-minus-external pressure difference for the specified component and burst criterion. Physical quantity: PressureDrilling; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("BurstPressure")]
+        public GaussianDrillingProperty BurstPressure { get; set; }
+
+        /// <summary>
+        /// Limiting external-minus-internal pressure difference for the specified component and collapse criterion. Physical quantity: PressureDrilling; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CollapsePressure")]
+        public GaussianDrillingProperty CollapsePressure { get; set; }
+
+        /// <summary>
+        /// Material stress at the stated yield criterion; distinct from ultimate tensile strength. Physical quantity: DrillStemMaterialStrengthDrilling; SI unit: pascals (Pa). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("YieldStress")]
+        public GaussianDrillingProperty YieldStress { get; set; }
+
+        /// <summary>
+        /// Recommended assembly make-up torque for the specified connection; not torsional failure capacity. Physical quantity: TorqueDrilling; SI unit: N·m. The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MakeUpTorqueRecommended")]
+        public ScalarDrillingProperty MakeUpTorqueRecommended { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SideConnectors")]
+        public System.Collections.Generic.List<SideConnector> SideConnectors { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum SurfaceSectionType
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unknown")]
+        Unknown = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"BOP")]
+        BOP = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"HighPressureRiser")]
+        HighPressureRiser = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"LowPressureRiser")]
+        LowPressureRiser = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MarineRiser")]
+        MarineRiser = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ExpansionJoint")]
+        ExpansionJoint = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"BellNipple")]
+        BellNipple = 6,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Diverter")]
+        Diverter = 7,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"RotatingControlDevice")]
+        RotatingControlDevice = 8,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitecture
+    {
+        /// <summary>
+        /// Identity and service-location metadata accompanying a managed resource; a locator is not the semantic identity.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        /// <summary>
+        /// Human-readable name of a resource, definition or option; not necessarily unique or stable.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Human-readable descriptive text about a resource.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// A position on a time axis identified using a declared time scale and representation. Neither elapsed duration nor a calendar date alone.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        /// <summary>
+        /// Server-owned last-modification timestamp and optimistic-concurrency token; echo exactly on update or delete.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectureIdentityAssignments")]
+        public System.Collections.Generic.List<WellBoreArchitectureIdentityAssignment> WellBoreArchitectureIdentityAssignments { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectureFeatureAssignments")]
+        public System.Collections.Generic.List<WellBoreArchitectureFeatureAssignment> WellBoreArchitectureFeatureAssignments { get; set; }
+
+        /// <summary>
+        /// UUID of the externally owned WellBore resource to which this architecture belongs; not an embedded path or architecture UUID.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid? WellBoreID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellHead")]
+        public WellHead WellHead { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FluidsAboveGroundLevel")]
+        public System.Collections.Generic.List<WellBoreArchitectureFluid> FluidsAboveGroundLevel { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SurfaceSections")]
+        public System.Collections.Generic.List<SurfaceSection> SurfaceSections { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingSections")]
+        public System.Collections.Generic.List<CasingSection> CasingSections { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("OpenHoleSection")]
+        public OpenHoleSection OpenHoleSection { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureBatchCatalogDependencies
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Identities")]
+        public System.Collections.Generic.List<WellBoreArchitectureIdentity> Identities { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("FeatureCategories")]
+        public System.Collections.Generic.List<WellBoreArchitectureFeatureCategory> FeatureCategories { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureBatchCatalogMapping
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Catalog")]
+        public string Catalog { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SourceID")]
+        public System.Guid SourceID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("LocalID")]
+        public System.Guid LocalID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Resolution")]
+        public string Resolution { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum WellBoreArchitectureBatchCatalogRestorePolicy
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unspecified")]
+        Unspecified = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MapExisting")]
+        MapExisting = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"MapOrCreateMissing")]
+        MapOrCreateMissing = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureBatchError
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("PositionIndex")]
+        public int? PositionIndex { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Property")]
+        public string Property { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Code")]
+        public string Code { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Message")]
+        public string Message { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureBatchErrorEnvelope
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Error")]
+        public string Error { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Message")]
+        public string Message { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Errors")]
+        public System.Collections.Generic.List<WellBoreArchitectureBatchError> Errors { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureBatchExportDocument
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("FormatIdentifier")]
+        public string FormatIdentifier { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("SchemaVersion")]
+        public int SchemaVersion { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ExportedAtUtc")]
+        public System.DateTimeOffset ExportedAtUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CatalogDependencies")]
+        public WellBoreArchitectureBatchCatalogDependencies CatalogDependencies { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectures")]
+        public System.Collections.Generic.List<WellBoreArchitecture> WellBoreArchitectures { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureBatchExportRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Scope")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public WellBoreArchitectureBatchExportScope Scope { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectureIDs")]
+        public System.Collections.Generic.List<System.Guid> WellBoreArchitectureIDs { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum WellBoreArchitectureBatchExportScope
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unspecified")]
+        Unspecified = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"All")]
+        All = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Selected")]
+        Selected = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum WellBoreArchitectureBatchRestoreConflictPolicy
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unspecified")]
+        Unspecified = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"FailIfExists")]
+        FailIfExists = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"ReplaceExisting")]
+        ReplaceExisting = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureBatchRestoreRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("ConflictPolicy")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public WellBoreArchitectureBatchRestoreConflictPolicy ConflictPolicy { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CatalogPolicy")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public WellBoreArchitectureBatchCatalogRestorePolicy CatalogPolicy { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("AllowNormalizedNameMapping")]
+        public bool AllowNormalizedNameMapping { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Document")]
+        public WellBoreArchitectureBatchExportDocument Document { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureBatchRestoreResponse
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("RestoredAtUtc")]
+        public System.DateTimeOffset RestoredAtUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreatedCount")]
+        public int CreatedCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ReplacedCount")]
+        public int ReplacedCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreatedCatalogDefinitionCount")]
+        public int CreatedCatalogDefinitionCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreatedCatalogOptionCount")]
+        public int CreatedCatalogOptionCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CatalogMappings")]
+        public System.Collections.Generic.List<WellBoreArchitectureBatchCatalogMapping> CatalogMappings { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectureIDs")]
+        public System.Collections.Generic.List<System.Guid> WellBoreArchitectureIDs { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureDiscoveryPage
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Items")]
+        public System.Collections.Generic.List<WellBoreArchitectureLight> Items { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Offset")]
+        public int Offset { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Limit")]
+        public int Limit { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("TotalCount")]
+        public int TotalCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("NextOffset")]
+        public int? NextOffset { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureExternalReferenceAuditRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Scope")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public WellBoreArchitectureExternalReferenceAuditScope Scope { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectureIDs")]
+        public System.Collections.Generic.List<System.Guid> WellBoreArchitectureIDs { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Offset")]
+        public int Offset { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Limit")]
+        public int Limit { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureExternalReferenceAuditResult
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("CheckedAtUtc")]
+        public System.DateTimeOffset CheckedAtUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Total")]
+        public int Total { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Offset")]
+        public int Offset { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Limit")]
+        public int Limit { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("ValidCount")]
+        public int ValidCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("InvalidCount")]
+        public int InvalidCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("UnavailableCount")]
+        public int UnavailableCount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Items")]
+        public System.Collections.Generic.List<WellBoreArchitectureExternalReferenceValidation> Items { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum WellBoreArchitectureExternalReferenceAuditScope
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"All")]
+        All = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Selected")]
+        Selected = 1,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureExternalReferenceIssue
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("Property")]
+        public string Property { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Code")]
+        public string Code { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Message")]
+        public string Message { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureExternalReferenceValidation
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectureID")]
+        public System.Guid WellBoreArchitectureID { get; set; }
+
+        /// <summary>
+        /// UUID of the externally owned WellBore resource to which this architecture belongs; not an embedded path or architecture UUID.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid? WellBoreID { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreExists")]
+        public bool? WellBoreExists { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Status")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public WellBoreArchitectureExternalReferenceValidationStatus Status { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("CheckedAtUtc")]
+        public System.DateTimeOffset CheckedAtUtc { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Issues")]
+        public System.Collections.Generic.List<WellBoreArchitectureExternalReferenceIssue> Issues { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum WellBoreArchitectureExternalReferenceValidationStatus
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Valid")]
+        Valid = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Invalid")]
+        Invalid = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Unavailable")]
+        Unavailable = 2,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureFeatureAssignment
+    {
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ID")]
+        public System.Guid ID { get; set; }
+
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("FeatureCategoryID")]
+        public System.Guid? FeatureCategoryID { get; set; }
+
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("FeatureOptionID")]
+        public System.Guid? FeatureOptionID { get; set; }
+
+        /// <summary>
+        /// A position on a time axis identified using a declared time scale and representation. Neither elapsed duration nor a calendar date alone.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("FromDate")]
+        public System.DateTimeOffset? FromDate { get; set; }
+
+        /// <summary>
+        /// A position on a time axis identified using a declared time scale and representation. Neither elapsed duration nor a calendar date alone.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ToDate")]
+        public System.DateTimeOffset? ToDate { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureFeatureCategory
+    {
+        /// <summary>
+        /// Identity and service-location metadata accompanying a managed resource; a locator is not the semantic identity.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        /// <summary>
+        /// Human-readable name of a resource, definition or option; not necessarily unique or stable.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Boolean rule declaring that at most one category assignment may be active on a resource at the same instant.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("IsExclusive")]
+        public bool IsExclusive { get; set; }
+
+        /// <summary>
+        /// Boolean rule indicating whether assignments in a category may carry validity bounds.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("HasValidityPeriod")]
+        public bool HasValidityPeriod { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Options")]
+        public System.Collections.Generic.List<WellBoreArchitectureFeatureOption> Options { get; set; }
+
+        /// <summary>
+        /// A position on a time axis identified using a declared time scale and representation. Neither elapsed duration nor a calendar date alone.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        /// <summary>
+        /// Server-owned last-modification timestamp and optimistic-concurrency token; echo exactly on update or delete.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureFeatureOption
+    {
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ID")]
+        public System.Guid ID { get; set; }
+
+        /// <summary>
+        /// Human-readable name of a resource, definition or option; not necessarily unique or stable.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureFluid
+    {
+        /// <summary>
+        /// Finite classification of environmental fluid kind.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Fluid")]
+        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public FluidType Fluid { get; set; }
+
+        /// <summary>
+        /// Negative ellipsoidal height measured along the ellipsoid normal: positive inward from the reference ellipsoid. Top boundary of an environmental fluid layer, represented by vertical EllipsoidalDepth. Physical quantity: DepthDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions. WGS84 geodetic latitude/longitude with Greenwich origin and ellipsoidal depth positive downward; not a fully specified terrestrial frame realization or epoch. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Depth")]
+        public GaussianDrillingProperty Depth { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureIdentity
+    {
+        /// <summary>
+        /// Identity and service-location metadata accompanying a managed resource; a locator is not the semantic identity.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        /// <summary>
+        /// Human-readable name of a resource, definition or option; not necessarily unique or stable.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// A position on a time axis identified using a declared time scale and representation. Neither elapsed duration nor a calendar date alone.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        /// <summary>
+        /// Server-owned last-modification timestamp and optimistic-concurrency token; echo exactly on update or delete.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureIdentityAssignment
+    {
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("ID")]
+        public System.Guid ID { get; set; }
+
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("IdentityID")]
+        public System.Guid? IdentityID { get; set; }
+
+        /// <summary>
+        /// Value identifying a resource within a selected identification scheme; its interpretation and uniqueness depend on that scheme.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Value")]
+        public string Value { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellBoreArchitectureLight
+    {
+        /// <summary>
+        /// UUID of the externally owned WellBore resource to which this architecture belongs; not an embedded path or architecture UUID.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreID")]
+        public System.Guid? WellBoreID { get; set; }
+
+        /// <summary>
+        /// Identity and service-location metadata accompanying a managed resource; a locator is not the semantic identity.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MetaInfo")]
+        public MetaInfo MetaInfo { get; set; }
+
+        /// <summary>
+        /// Human-readable name of a resource, definition or option; not necessarily unique or stable.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Human-readable descriptive text about a resource.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// A position on a time axis identified using a declared time scale and representation. Neither elapsed duration nor a calendar date alone.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CreationDate")]
+        public System.DateTimeOffset? CreationDate { get; set; }
+
+        /// <summary>
+        /// Server-owned last-modification timestamp and optimistic-concurrency token; echo exactly on update or delete.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("LastModificationDate")]
+        public System.DateTimeOffset? LastModificationDate { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellHead
+    {
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Maximum outside diameter of the wellhead geometric envelope, not a statistical upper bound. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MaxOD")]
+        public ScalarDrillingProperty MaxOD { get; set; }
+
+        /// <summary>
+        /// Diameter of a tubular or component body with an explicit inner, outer or envelope role. Minimum outside diameter of the wellhead geometric envelope, not a statistical lower bound. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("MinOD")]
+        public ScalarDrillingProperty MinOD { get; set; }
+
+        /// <summary>
+        /// Negative ellipsoidal height measured along the ellipsoid normal: positive inward from the reference ellipsoid. Vertical location of the wellhead; bind to EllipsoidalDepth under the canonical drilling profile. Physical quantity: DepthDrilling; SI unit: metres (m). GaussianValue.Mean is the expected value; StandardDeviation is nonnegative uncertainty in the same SI unit, with no origin offset. Null deviation is unspecified, not zero. MinValue/MaxValue are domain bounds in the mean's unit and reference, not confidence limits or truncation instructions. WGS84 geodetic latitude/longitude with Greenwich origin and ellipsoidal depth positive downward; not a fully specified terrestrial frame realization or epoch. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("Depth")]
+        public GaussianDrillingProperty Depth { get; set; }
+
+        /// <summary>
+        /// Negative ellipsoidal height measured along the ellipsoid normal: positive inward from the reference ellipsoid. Vertical location of the casing hanger; bind to EllipsoidalDepth under the canonical drilling profile. Physical quantity: DepthDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference. WGS84 geodetic latitude/longitude with Greenwich origin and ellipsoidal depth positive downward; not a fully specified terrestrial frame realization or epoch. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("CasingHangerDepth")]
+        public ScalarDrillingProperty CasingHangerDepth { get; set; }
+
+        /// <summary>
+        /// Negative ellipsoidal height measured along the ellipsoid normal: positive inward from the reference ellipsoid. Vertical location of the tubing hanger; bind to EllipsoidalDepth under the canonical drilling profile. Physical quantity: DepthDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference. WGS84 geodetic latitude/longitude with Greenwich origin and ellipsoidal depth positive downward; not a fully specified terrestrial frame realization or epoch. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("TubingHangerDepth")]
+        public ScalarDrillingProperty TubingHangerDepth { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class WellboreRadialProfile
+    {
+        /// <summary>
+        /// A UUID identifying a resource, nested object, catalogue definition, option or assignment in a declared ownership and type scope.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("WellBoreArchitectureID")]
+        public System.Guid WellBoreArchitectureID { get; set; }
+
+        /// <summary>
+        /// Curvilinear abscissa along an oriented wellbore path, expressed as accumulated arc length from the origin established by the applicable reference convention. It may be planned, calculated, interpolated or measured. Physical quantity: DepthDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference. Zero along-hole depth is the intersection of the oriented wellbore path, or its defined extension, with the WGS84 ellipsoid. The coordinate is signed accumulated arc length from that intersection along the declared path orientation. It is not obtained by adding or subtracting a vertical elevation offset. This reference applies to canonical storage and APIs; supported user-selected presentation references remain allowed.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("AlongHoleDepth")]
+        public double AlongHoleDepth { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("Boundaries")]
+        public System.Collections.Generic.List<RadialBoundary> Boundaries { get; set; }
+
+        /// <summary>
+        /// Largest known applicable radial-boundary diameter at the evaluated abscissa, selected for external physical-clearance or projected-envelope calculations. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("OutermostKnownPhysicalEnvelopeDiameter")]
+        public double OutermostKnownPhysicalEnvelopeDiameter { get; set; }
+
+        /// <summary>
+        /// Smallest known applicable radial-boundary diameter at the evaluated abscissa, selected for internal-clearance calculations. Physical quantity: DiameterPipeDrilling; SI unit: metres (m). The SI value is stored at DiracDistributionValue.Value; MinValue/MaxValue are domain bounds in the same unit and reference.
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("InnermostKnownPhysicalEnvelopeDiameter")]
+        public double InnermostKnownPhysicalEnvelopeDiameter { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        [System.Text.Json.Serialization.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Interface, AllowMultiple = true)]
+    internal class JsonInheritanceAttribute : System.Attribute
+    {
+        public JsonInheritanceAttribute(string key, System.Type type)
+        {
+            Key = key;
+            Type = type;
+        }
+
+        public string Key { get; }
+
+        public System.Type Type { get; }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    internal class JsonInheritanceConverterAttribute : System.Text.Json.Serialization.JsonConverterAttribute
+    {
+        public string DiscriminatorName { get; }
+
+        public JsonInheritanceConverterAttribute(System.Type baseType, string discriminatorName = "discriminator")
+            : base(typeof(JsonInheritanceConverter<>).MakeGenericType(baseType))
+        {
+            DiscriminatorName = discriminatorName;
+        }
+    }
+
+    public class JsonInheritanceConverter<TBase> : System.Text.Json.Serialization.JsonConverter<TBase>
+    {
+        private readonly string _discriminatorName;
+
+        public JsonInheritanceConverter()
+        {
+            var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute<JsonInheritanceConverterAttribute>(typeof(TBase));
+            _discriminatorName = attribute?.DiscriminatorName ?? "discriminator";
+        }
+
+        public JsonInheritanceConverter(string discriminatorName)
+        {
+            _discriminatorName = discriminatorName;
+        }
+
+        public string DiscriminatorName { get { return _discriminatorName; } }
+
+        public override TBase Read(ref System.Text.Json.Utf8JsonReader reader, System.Type typeToConvert, System.Text.Json.JsonSerializerOptions options)
+        {
+            var document = System.Text.Json.JsonDocument.ParseValue(ref reader);
+            var hasDiscriminator = document.RootElement.TryGetProperty(_discriminatorName, out var discriminator);
+            var subtype = GetDiscriminatorType(document.RootElement, typeToConvert, hasDiscriminator ? discriminator.GetString() : null);
+
+            var bufferWriter = new System.IO.MemoryStream();
+            using (var writer = new System.Text.Json.Utf8JsonWriter(bufferWriter))
+            {
+                document.RootElement.WriteTo(writer);
+            }
+
+            return (TBase)System.Text.Json.JsonSerializer.Deserialize(bufferWriter.ToArray(), subtype, options);
+        }
+
+        public override void Write(System.Text.Json.Utf8JsonWriter writer, TBase value, System.Text.Json.JsonSerializerOptions options)
+        {
+            if (value != null)
+            {
+                writer.WriteStartObject();
+                writer.WriteString(_discriminatorName, GetDiscriminatorValue(value.GetType()));
+
+                var bytes = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes((object)value, options);
+                var document = System.Text.Json.JsonDocument.Parse(bytes);
+                foreach (var property in document.RootElement.EnumerateObject())
+                {
+                    property.WriteTo(writer);
+                }
+
+                writer.WriteEndObject();
+            }
+            else
+            {
+                writer.WriteNullValue();
+            }
+        }
+
+        public string GetDiscriminatorValue(System.Type type)
+        {
+            var jsonInheritanceAttributeDiscriminator = GetSubtypeDiscriminator(type);
+            if (jsonInheritanceAttributeDiscriminator != null)
+            {
+                return jsonInheritanceAttributeDiscriminator;
+            }
+
+            return type.Name;
+        }
+
+        protected System.Type GetDiscriminatorType(System.Text.Json.JsonElement jObject, System.Type objectType, string discriminatorValue)
+        {
+            if (discriminatorValue != null)
+            {
+                var jsonInheritanceAttributeSubtype = GetObjectSubtype(objectType, discriminatorValue);
+                if (jsonInheritanceAttributeSubtype != null)
+                {
+                    return jsonInheritanceAttributeSubtype;
+                }
+
+                if (objectType.Name == discriminatorValue)
+                {
+                    return objectType;
+                }
+
+                var typeName = objectType.Namespace + "." + discriminatorValue;
+                var subtype = System.Reflection.IntrospectionExtensions.GetTypeInfo(objectType).Assembly.GetType(typeName);
+                if (subtype != null)
+                {
+                    return subtype;
+                }
+            }
+
+            throw new System.InvalidOperationException("Could not find subtype of '" + objectType.Name + "' with discriminator '" + discriminatorValue + "'.");
+        }
+
+        private System.Type GetObjectSubtype(System.Type baseType, string discriminatorValue)
+        {
+            foreach (var attribute in System.Reflection.CustomAttributeExtensions.GetCustomAttributes<JsonInheritanceAttribute>(System.Reflection.IntrospectionExtensions.GetTypeInfo(baseType), true))
+            {
+                if (attribute.Key == discriminatorValue)
+                    return attribute.Type;
+            }
+
+            return null;
+        }
+
+        private string GetSubtypeDiscriminator(System.Type objectType)
+        {
+            foreach (var attribute in System.Reflection.CustomAttributeExtensions.GetCustomAttributes<JsonInheritanceAttribute>(System.Reflection.IntrospectionExtensions.GetTypeInfo(objectType), true))
+            {
+                if (attribute.Type == objectType)
+                    return attribute.Key;
+            }
+
+            return null;
+        }
     }
 
 

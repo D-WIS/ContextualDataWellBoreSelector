@@ -9,7 +9,7 @@
     <MudGrid Class="my-2">
         @if (Fields != null)
         {
-            <MudItem xs="2">
+            <MudItem xs="12" sm="6" md="3">
                 <MudSelect T="DWIS.ContextualData.WellBoreSelector.ModelShared.Field"
                            Label="Field"
                            Value="@_selectedField"
@@ -32,7 +32,7 @@
         }
         @if (Clusters != null && _selectedField != null)
         {
-            <MudItem xs="2">
+            <MudItem xs="12" sm="6" md="3">
                 <MudSelect T="Cluster"
                            Label="Cluster"
                            Value="@_selectedCluster"
@@ -52,7 +52,7 @@
         }
         @if (Wells != null)
         {
-            <MudItem xs="2">
+            <MudItem xs="12" sm="6" md="3">
                 <MudSelect T="Well"
                            Label="Well"
                            Value="@_selectedWell"
@@ -72,7 +72,7 @@
         }
         @if (WellBores != null && _selectedWell != null)
         {
-            <MudItem xs="2">
+            <MudItem xs="12" sm="6" md="3">
                 <MudSelect T="WellBore"
                            Label="Wellbore"
                            Value="@_selectedWellBore"
@@ -91,11 +91,32 @@
             <MudItem xs="2" />
         }
     </MudGrid>
+
+    <MudSelect T="Guid?" Label="Wellbore architecture" @bind-Value="_architectureID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3">
+        @foreach (var option in _architectures)
+        {
+            <MudSelectItem T="Guid?" Value="@((Guid?)option.ID)">@option.Name (@option.ID.ToString().Substring(0, 8))</MudSelectItem>
+        }
+    </MudSelect>
+
+    <MudSelect T="Guid?" Label="Trajectory" @bind-Value="_trajectoryID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3">
+        @foreach (var option in _trajectories)
+        {
+            <MudSelectItem T="Guid?" Value="@((Guid?)option.ID)">@option.Name (@option.ID.ToString().Substring(0, 8))</MudSelectItem>
+        }
+    </MudSelect>
+
+    <MudSelect T="Guid?" Label="Drill-string" @bind-Value="_drillStringID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3">
+        @foreach (var option in _drillStrings)
+        {
+            <MudSelectItem T="Guid?" Value="@((Guid?)option.ID)">@option.Name (@option.ID.ToString().Substring(0, 8))</MudSelectItem>
+        }
+    </MudSelect>
     <MudButton Variant="Variant.Filled"
                Color="Color.Primary"
-               Disabled="@(_selectedWellBore is null)"
-               OnClick="SelectCurrentWellBore">
-        Select wellbore
+               Disabled="@(_selectedWellBore is null || _contextLoading || _contextLoadFailed)"
+               OnClick="ApplySelectionsAsync">
+        Apply selections
     </MudButton>
 </MudPaper>
 
@@ -122,6 +143,7 @@
     {
         await InitializeAsync();
         await ManageSignal();
+        await InitializeContextSelectionsAsync();
         await InvokeAsync(() => { StateHasChanged(); });
     }
     private async Task InitializeAsync()
@@ -256,180 +278,28 @@
 
     protected async Task ManageSignal()
     {
-        try
+        var client = DWISConnector.Instance.DWISClient;
+        if (client?.Connected != true) return;
+        QueryResult? node = null;
+        if (!RegisterToBlackboard(_selectedWellboreData.WellBore, client, ref node) || node is null) return;
+        _placeHolder = node;
+        if (node.Count == 0 || node[0].Count == 0) return;
+        var address = node[0][0];
+        if (client.ReadAnyVariables(out object[] values, (address.NameSpace, address.ID))
+            && values.FirstOrDefault() is string json && !string.IsNullOrWhiteSpace(json))
         {
-            if (DWISConnector.Instance.DWISClient is not null && DWISConnector.Instance.DWISClient.Connected)
+            try
             {
-                QueryResult? placeHolder = null;
-                if (RegisterToBlackboard(_selectedWellboreData.WellBore, DWISConnector.Instance.DWISClient, ref placeHolder) && placeHolder is not null)
-                {
-                    _placeHolder = placeHolder;
-                    if (placeHolder.Count > 0 && placeHolder[0].Count > 0)
-                    {
-                        (string nameSpace, string id)[] nodes = new (string nameSpace, string id)[1];
-                        nodes[0].nameSpace = placeHolder[0][0].NameSpace;
-                        nodes[0].id = placeHolder[0][0].ID;
-                        if (DWISConnector.Instance.DWISClient.ReadAnyVariables(out object[] results, nodes) && results is not null && results.Length > 0)
-                        {
-                            if (results[0] is string sval)
-                            {
-                                WellBore? wellBore = null;
-                                try
-                                {
-                                    wellBore = JsonSerializer.Deserialize<WellBore>(sval);
-                                }
-                                catch (Exception e)
-                                {
-                                    logger?.LogError(e.ToString());
-                                }
-                                if (wellBore is not null && wellBore.MetaInfo is not null)
-                                {
-                                    Guid guid = wellBore.MetaInfo.ID;
-                                    if (WellBores is not null && WellBores.ContainsKey(guid))
-                                    {
-                                        _selectedWellBore = WellBores[guid];
-                                        if (_selectedWellBore is not null && _selectedWellBore.WellID is not null)
-                                        {
-                                            guid = _selectedWellBore.WellID.Value;
-                                            if (Wells is not null && Wells.ContainsKey(guid))
-                                            {
-                                                _selectedWell = Wells[guid];
-                                                if (_selectedWell is not null && _selectedWell.ClusterID is not null)
-                                                {
-                                                    guid = _selectedWell.ClusterID.Value;
-                                                    if (Clusters is not null && Clusters.ContainsKey(guid))
-                                                    {
-                                                        _selectedCluster = Clusters[guid];
-                                                        if (_selectedCluster is not null && _selectedCluster.FieldID is not null)
-                                                        {
-                                                            guid = _selectedCluster.FieldID.Value;
-                                                            if (Fields is not null && Fields.ContainsKey(guid))
-                                                            {
-                                                                _selectedField = Fields[guid];
-                                                                if (_selectedField is null)
-                                                                {
-                                                                    _selectedField = null;
-                                                                    _selectedCluster = null;
-                                                                    _selectedWell = null;
-                                                                    _selectedWellBore = null;
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                _selectedField = null;
-                                                                _selectedCluster = null;
-                                                                _selectedWell = null;
-                                                                _selectedWellBore = null;
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            _selectedField = null;
-                                                            _selectedCluster = null;
-                                                            _selectedWell = null;
-                                                            _selectedWellBore = null;
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        _selectedField = null;
-                                                        _selectedCluster = null;
-                                                        _selectedWell = null;
-                                                        _selectedWellBore = null;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    _selectedField = null;
-                                                    _selectedCluster = null;
-                                                    _selectedWell = null;
-                                                    _selectedWellBore = null;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                _selectedField = null;
-                                                _selectedCluster = null;
-                                                _selectedWell = null;
-                                                _selectedWellBore = null;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            _selectedField = null;
-                                            _selectedCluster = null;
-                                            _selectedWell = null;
-                                            _selectedWellBore = null;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        _selectedField = null;
-                                        _selectedCluster = null;
-                                        _selectedWell = null;
-                                        _selectedWellBore = null;
-                                    }
-                                }
-                                else
-                                {
-                                    _selectedField = null;
-                                    _selectedCluster = null;
-                                    _selectedWell = null;
-                                    _selectedWellBore = null;
-                                }
-                            }
-                            else
-                            {
-                                _selectedField = null;
-                                _selectedCluster = null;
-                                _selectedWell = null;
-                                _selectedWellBore = null;
-                            }
-                        }
-                        else
-                        {
-                            _selectedField = null;
-                            _selectedCluster = null;
-                            _selectedWell = null;
-                            _selectedWellBore = null;
-                        }
-                    }
-                    else
-                    {
-                        _selectedField = null;
-                        _selectedCluster = null;
-                        _selectedWell = null;
-                        _selectedWellBore = null;
-                    }
-                }
+                var current = JsonSerializer.Deserialize<WellBore>(json);
+                _selectedWellBore = current?.MetaInfo is null ? null : WellBores?.GetValueOrDefault(current.MetaInfo.ID);
+                _selectedWell = _selectedWellBore?.WellID is Guid well ? Wells?.GetValueOrDefault(well) : null;
+                _selectedCluster = _selectedWell?.ClusterID is Guid cluster ? Clusters?.GetValueOrDefault(cluster) : null;
+                _selectedField = _selectedCluster?.FieldID is Guid field ? Fields?.GetValueOrDefault(field) : null;
             }
+            catch (JsonException ex) { logger.LogWarning(ex, "Cannot restore the current wellbore"); }
         }
-        catch (Exception ex)
-        {
-            logger?.LogError(ex.ToString());
-        }
-        await Task.Yield();
+        await Task.CompletedTask;
     }
-
-    private async Task SelectCurrentWellBore()
-    {
-        if (DWISConnector.Instance.DWISClient is not null &&
-            DWISConnector.Instance.DWISClient.Connected &&
-            _placeHolder is not null)
-        {
-            string? json = null;
-            if (_selectedWellBore is not null)
-            {
-                var wellBore = await APIUtils.ClientWellBore.GetWellBoreByIdAsync(_selectedWellBore.MetaInfo.ID);
-                json = JsonSerializer.Serialize(wellBore);
-            }
-            if (DWISConnector.Instance.SendValue(_placeHolder, json))
-                Snackbar.Add("Selected wellbore published to the Blackboard.", Severity.Success);
-            else Snackbar.Add("The Blackboard rejected the wellbore selection.", Severity.Error);
-        }
-        await Task.Yield();
-    }
-
     private Task OnFieldChanged(DWIS.ContextualData.WellBoreSelector.ModelShared.Field? field)
     {
         _selectedField = field;
@@ -454,10 +324,10 @@
         return Task.CompletedTask;
     }
 
-    private Task OnWellBoreChanged(WellBore? wellBore)
+    private async Task OnWellBoreChanged(WellBore? wellBore)
     {
         _selectedWellBore = wellBore;
-        return Task.CompletedTask;
+        await LoadContextChoicesAsync();
     }
 
 }

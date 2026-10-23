@@ -18,6 +18,9 @@ namespace DWIS.ContextualData.WellBoreSelector.WebApp
         public string? WellHostURL { get; set; }
         public string? FieldHostURL { get; set; }
         public string? ClusterHostURL { get; set; }
+        public string? WellBoreArchitectureHostURL { get; set; } = "https://app.digiwells.no/";
+        public string? TrajectoryHostURL { get; set; } = "https://app.digiwells.no/";
+        public string? DrillStringHostURL { get; set; } = "https://app.digiwells.no/";
         public string? GeneralBlackboard { get; set; } = "opc.tcp://localhost:48030";
 
         public static void LoadFromHome(string contentRootPath)
@@ -60,6 +63,9 @@ namespace DWIS.ContextualData.WellBoreSelector.WebApp
             FieldHostURL = loaded.FieldHostURL;
             ClusterHostURL = loaded.ClusterHostURL;
             GeneralBlackboard = loaded.GeneralBlackboard;
+            WellBoreArchitectureHostURL = loaded.WellBoreArchitectureHostURL;
+            TrajectoryHostURL = loaded.TrajectoryHostURL;
+            DrillStringHostURL = loaded.DrillStringHostURL;
         }
 
         private void WriteDefaults(string configPath)

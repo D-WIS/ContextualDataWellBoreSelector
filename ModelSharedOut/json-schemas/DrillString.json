@@ -1,0 +1,720 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Service, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "version": "1.0"
+  },
+  "paths": {
+    "/DrillString": {
+      "get": {
+        "tags": [
+          "DrillString"
+        ],
+        "operationId": "GetAllDrillStringId",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "DrillString"
+        ],
+        "operationId": "PostDrillString",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillString"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillString"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillString"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/DrillString/MetaInfo": {
+      "get": {
+        "tags": [
+          "DrillString"
+        ],
+        "operationId": "GetAllDrillStringMetaInfo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/DrillString/{id}": {
+      "get": {
+        "tags": [
+          "DrillString"
+        ],
+        "operationId": "GetDrillStringById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillString"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "DrillString"
+        ],
+        "operationId": "PutDrillStringById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillString"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillString"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillString"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "DrillString"
+        ],
+        "operationId": "DeleteDrillStringById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/DrillString/LightData": {
+      "get": {
+        "tags": [
+          "DrillString"
+        ],
+        "operationId": "GetAllDrillStringLight",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillStringLight"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/DrillString/HeavyData": {
+      "get": {
+        "tags": [
+          "DrillString"
+        ],
+        "operationId": "GetAllDrillString",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillString"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Model.DrillStringComponentTypes.DrillStringComponentTypes": {
+        "enum": [
+          "DrillPipe",
+          "DrillCollar",
+          "HeavyWeightDrillPipe",
+          "Jar",
+          "Mwd",
+          "Stabilizer",
+          "SteerableRotaryTool",
+          "Bit",
+          "Other"
+        ],
+        "type": "string",
+        "description": "an enum to describe the types deriving from MyBaseData"
+      },
+      "Model.DrillStringSensorTypes.DrillStringSensorTypes": {
+        "enum": [
+          "Acoustic",
+          "AccelerometerX",
+          "AccelerometerY",
+          "AccelerometerZ",
+          "ResistivitySource",
+          "ResistivityReceiver",
+          "NeutronDensity",
+          "NeutronPorosity",
+          "MagnetometerX",
+          "MagnetometerY",
+          "RotationalPitch",
+          "RotationalRoll",
+          "RotationalYaw",
+          "BendingMomentX",
+          "BendingMomentY",
+          "StringPressure",
+          "AnnulusPressure",
+          "StringTemperature",
+          "ElectronicTemperature",
+          "AnnulusTemperature",
+          "GammaRay",
+          "Other",
+          "Tension",
+          "Torque"
+        ],
+        "type": "string",
+        "description": "an enum to describe the types of sensors in the drill string"
+      },
+      "NORCE.Drilling.DrillString.Model.DrillString": {
+        "type": "object",
+        "properties": {
+          "MetaInfo": {
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
+          },
+          "Name": {
+            "type": "string",
+            "description": "name of the data",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "description": "a description of the data",
+            "nullable": true
+          },
+          "CreationDate": {
+            "type": "string",
+            "description": "the date when the data was created",
+            "format": "date-time",
+            "nullable": true
+          },
+          "LastModificationDate": {
+            "type": "string",
+            "description": "the date when the data was last modified",
+            "format": "date-time",
+            "nullable": true
+          },
+          "WellBoreID": {
+            "type": "string",
+            "description": "Carries the guid of the associated wellbore",
+            "format": "uuid",
+            "nullable": true
+          },
+          "DrillStringSectionList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillStringSection"
+            },
+            "description": "Section of the drill-string (drill-pipes, heavy weight drill pipes, BHA...)",
+            "nullable": true
+          },
+          "SensorsList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillStringSensor"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NORCE.Drilling.DrillString.Model.DrillStringComponent": {
+        "type": "object",
+        "properties": {
+          "MetaInfo": {
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
+          },
+          "EquipmentIdentity": {
+            "$ref": "#/components/schemas/OSDC.Drilling.DrillString.Model.EquipmentIdentity"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "CreationDate": {
+            "type": "string",
+            "description": "the date when the data was created",
+            "format": "date-time",
+            "nullable": true
+          },
+          "LastModificationDate": {
+            "type": "string",
+            "description": "the date when the data was last modified",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "FieldID": {
+            "type": "string",
+            "description": "the Field which this component belongs to",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Type": {
+            "$ref": "#/components/schemas/Model.DrillStringComponentTypes.DrillStringComponentTypes"
+          },
+          "PartList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillStringComponentPart"
+            },
+            "nullable": true
+          },
+          "Length": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NORCE.Drilling.DrillString.Model.DrillStringComponentPart": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "TotalLength": {
+            "type": "number",
+            "format": "double"
+          },
+          "OuterDiameter": {
+            "type": "number",
+            "format": "double"
+          },
+          "InnerDiameter": {
+            "type": "number",
+            "format": "double"
+          },
+          "OuterDiameterState2": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "OuterDiameterStateBoolean": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "FrictionFactorRotation": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "FrictionFactorAxialDisplacement": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "PressureLossConstantLowFlowRate": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "PressureLossConstantHighFlowRate": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "EccentricityDistance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "EccentricityAngle": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "TotalFlowAreaCondition1": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "TotalFlowAreaCondition2": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "TotalFlowAreaConditionBoolean": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "FlowrateThresholdValue": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "InnerCoatingThickness": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "InnerCoatingDensity": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "InnerCoatingThermalCondutivity": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "InnerCoatingHeatCapacity": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "OuterCoatingThickness": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "OuterCoatingDensity": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "OuterCoatingThermalCondutivity": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "OuterCoatingHeatCapacity": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "YieldStrength": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "UltimateStrength": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "SecondCrossSectionTorsionalInertia": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "FirstCrossSectionTorsionalInertia": {
+            "type": "number",
+            "format": "double"
+          },
+          "CrossSectionArea": {
+            "type": "number",
+            "format": "double"
+          },
+          "YoungModulus": {
+            "type": "number",
+            "format": "double"
+          },
+          "PoissonRatio": {
+            "type": "number",
+            "format": "double"
+          },
+          "MaterialDensity": {
+            "type": "number",
+            "format": "double"
+          },
+          "AveragePartDensity": {
+            "type": "number",
+            "format": "double"
+          },
+          "Mass": {
+            "type": "number",
+            "format": "double"
+          },
+          "HeatCapacity": {
+            "type": "number",
+            "format": "double"
+          },
+          "ThermalCondutivity": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NORCE.Drilling.DrillString.Model.DrillStringLight": {
+        "type": "object",
+        "properties": {
+          "MetaInfo": {
+            "$ref": "#/components/schemas/OSDC.DotnetLibraries.General.DataManagement.MetaInfo"
+          },
+          "Name": {
+            "type": "string",
+            "description": "name of the data",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "description": "a description of the data",
+            "nullable": true
+          },
+          "CreationDate": {
+            "type": "string",
+            "description": "the date when the data was created",
+            "format": "date-time",
+            "nullable": true
+          },
+          "LastModificationDate": {
+            "type": "string",
+            "description": "the date when the data was last modified",
+            "format": "date-time",
+            "nullable": true
+          },
+          "WellBoreID": {
+            "type": "string",
+            "description": "Carries the guid of the associated wellbore",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Light weight version of a MyParentData\r\nUsed to avoid loading the complete MyParentData (heavy weight data) each time we only need contextual info on the data\r\nTypically used for listing, sorting and filtering purposes"
+      },
+      "NORCE.Drilling.DrillString.Model.DrillStringSection": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SectionComponentList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NORCE.Drilling.DrillString.Model.DrillStringComponent"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NORCE.Drilling.DrillString.Model.DrillStringSensor": {
+        "type": "object",
+        "properties": {
+          "SensorID": {
+            "type": "string",
+            "description": "Stable sensor UUID. Null for legacy unidentified sensor entries; never generated on read.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ComponentID": {
+            "type": "string",
+            "description": "UUID of the owning component's MetaInfo.ID in this drill-string description.\r\n            The referenced component must occur exactly once, including section repetition.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "DistanceFromBit": {
+            "type": "number",
+            "description": "Sensor distance along the string from the bit, in SI metres (nonnegative).",
+            "format": "double",
+            "nullable": true
+          },
+          "MeasurementRange": {
+            "type": "number",
+            "description": "Range of the sensor measurement. 0 for in-point measurement",
+            "format": "double",
+            "nullable": true
+          },
+          "SensorAngles": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            },
+            "nullable": true
+          },
+          "SensorTypeInt": {
+            "type": "integer",
+            "description": "Type of the sensor integer which referes ti a bitwise enum of the sensor types. This is used for storage and processing purposes",
+            "format": "int32"
+          },
+          "SensorType": {
+            "$ref": "#/components/schemas/Model.DrillStringSensorTypes.DrillStringSensorTypes"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OSDC.DotnetLibraries.General.DataManagement.MetaInfo": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "HttpHostName": {
+            "type": "string",
+            "nullable": true
+          },
+          "HttpHostBasePath": {
+            "type": "string",
+            "nullable": true
+          },
+          "HttpEndPoint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OSDC.Drilling.DrillString.Model.EquipmentIdentity": {
+        "type": "object",
+        "properties": {
+          "EquipmentInstanceID": {
+            "type": "string",
+            "description": "Persistent UUID of the physical equipment, retained across drill-string descriptions.\r\n            Null for a product template. This differs from the component record UUID.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Manufacturer": {
+            "type": "string",
+            "description": "Manufacturer name, for example NOV or Halliburton.",
+            "nullable": true
+          },
+          "ModelIdentifier": {
+            "type": "string",
+            "description": "Manufacturer-qualified product identifier, for example NOV/BlackStreamEMS.",
+            "nullable": true
+          },
+          "ModelName": {
+            "type": "string",
+            "description": "Manufacturer's product or brand/model name.",
+            "nullable": true
+          },
+          "SerialNumber": {
+            "type": "string",
+            "description": "Optional manufacturer serial number; not a globally unique key.",
+            "nullable": true
+          },
+          "AssetIdentifier": {
+            "type": "string",
+            "description": "Optional deployment-managed asset identifier; not a globally unique key.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Product identity and optional persistent identity of any physical drill-string component."
+      }
+    }
+  }
+}
