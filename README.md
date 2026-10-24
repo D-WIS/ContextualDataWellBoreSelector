@@ -74,3 +74,5 @@ display only their names and also match their UUID when searching. Searches run 
 external services. Choose a listed result; arbitrary text is not a published selection.
 Use Apply selections to publish the selected UUIDs. Existing field/cluster/well filters apply
 before text filtering, including the field restriction on single wells.
+
+The query lifecycle dependency release uses OPC Foundation client 2.2.55 (directly or through mechanical bridge 1.0.6) and Common.Worker 1.0.8 where applicable. Repeated query registrations are deduplicated and released when their session closes. Existing configuration and persistent volumes are preserved.
