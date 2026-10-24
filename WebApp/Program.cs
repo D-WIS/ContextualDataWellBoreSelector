@@ -1,4 +1,4 @@
-﻿using DWIS.Client.ReferenceImplementation;
+using DWIS.Client.ReferenceImplementation;
 using DWIS.Client.ReferenceImplementation.OPCFoundation;
 using DWIS.ContextualData.WellBoreSelector.WebApp;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,12 +25,11 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
 });
 
+builder.Services.AddHostedService<BlackboardConnectionService>();
+
 var app = builder.Build();
 
 Configuration.LoadFromHome(builder.Environment.ContentRootPath);
-
-var opcLogger = app.Services.GetRequiredService<ILogger<DWISClientOPCF>>();
-DWISConnector.Instance.ConnectToBlackboard(opcLogger);
 
 app.UseForwardedHeaders();
 // This needs to match with what is defined in "charts/<helm-chart-name>/templates/values.yaml ingress.Path

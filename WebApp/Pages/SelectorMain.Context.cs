@@ -14,7 +14,7 @@ public partial class SelectorMain
     private bool _contextLoading, _contextLoadFailed;
     private int _contextLoadVersion;
 
-    private async Task InitializeContextSelectionsAsync()
+    private async Task InitializeContextSelectionsAsync(bool restoreChoices = true)
     {
         var client = DWISConnector.Instance.DWISClient;
         if (client?.Connected != true) return;
@@ -34,7 +34,9 @@ public partial class SelectorMain
                 throw new IOException("Cannot register contextual selection " + property.Name);
             _contextNodes[property.Name] = node;
         }
+        if (!restoreChoices) return;
         await LoadContextChoicesAsync();
+        if (_choicesEdited) return;
         _architectureID = ReadSelection("WellBoreArchitecture", _architectures);
         _trajectoryID = ReadSelection("Trajectory", _trajectories);
         _drillStringID = ReadSelection("DrillString", _drillStrings);
@@ -79,9 +81,10 @@ public partial class SelectorMain
     {
         try
         {
+            await RefreshBlackboardBindingsAsync();
             var client = DWISConnector.Instance.DWISClient;
-            if (client?.Connected != true || _placeHolder is null || _selectedWellBore?.MetaInfo is null)
-                throw new IOException("The Blackboard is unavailable.");
+            if (!_blackboardReady || client?.Connected != true || _placeHolder is null || _selectedWellBore?.MetaInfo is null)
+                throw new IOException("Waiting for the Blackboard connection and selection registration. Your choices are retained; please apply again when connected.");
             var wellBore = await APIUtils.ClientWellBore.GetWellBoreByIdAsync(_selectedWellBore.MetaInfo.ID);
             if (wellBore.MetaInfo.ID != _selectedWellBore.MetaInfo.ID) throw new InvalidDataException("Wellbore identity mismatch.");
             var values = new List<(string nameSpace, string id, object value, DateTime sourceTimestamp)>();

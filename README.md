@@ -23,7 +23,7 @@ the selected wellbore to the DWIS Blackboard.
 
 ## DWIS package versions
 This host uses DWIS.RigOS.Common.Model 1.0.7 and explicitly pins
-DWIS.Client.ReferenceImplementation.OPCFoundation 2.2.54. Restore packages from nuget.org.
+DWIS.Client.ReferenceImplementation.OPCFoundation 2.2.55. Restore packages from nuget.org.
 
 ## Docker publication
 Manually dispatch docker-build-push-interpreter.yml to build/test the solution and publish
@@ -76,3 +76,13 @@ Use Apply selections to publish the selected UUIDs. Existing field/cluster/well 
 before text filtering, including the field restriction on single wells.
 
 The query lifecycle dependency release uses OPC Foundation client 2.2.55 (directly or through mechanical bridge 1.0.6) and Common.Worker 1.0.8 where applicable. Repeated query registrations are deduplicated and released when their session closes. Existing configuration and persistent volumes are preserved.
+
+## Blackboard reconnection
+The host retries an unavailable or disconnected Blackboard every five seconds and disposes
+replaced sessions. Each open selector page retries registration of the wellbore and three
+context-selection signals, including after reconnect. A warning remains visible until all
+bindings are ready. No selections are published automatically. Unsaved dropdown choices
+survive connection loss; Blackboard selections are restored only on the first successful
+binding when the user has not already edited the page. Closing the page cancels its monitor.
+Regression tests cover startup failures, lost connections, disposal, registration failures,
+re-binding and preservation of unsaved choices.

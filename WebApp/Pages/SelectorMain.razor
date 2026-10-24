@@ -1,4 +1,5 @@
 @page "/Selector"
+@implements IAsyncDisposable
 @inject NavigationManager Navigation
 @inject ILogger<SelectorMain> logger
 @inject ISnackbar Snackbar
@@ -6,6 +7,10 @@
 <MudPaper Class="py-2 px-4">
     <MudText Typo="Typo.h6">Wellbore Selector</MudText>
     <MudDivider Class="mb-2" />
+    @if (!_blackboardReady)
+    {
+        <MudAlert Severity="Severity.Warning">Waiting for the Blackboard. Connection and selection registration retry automatically; your choices are retained.</MudAlert>
+    }
     <MudGrid Class="my-2">
         @if (Fields != null)
         {
@@ -65,11 +70,11 @@
         }
     </MudGrid>
 
-    <MudAutocomplete T="Guid?" Label="Wellbore architecture" @bind-Value="_architectureID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchArchitecturesAsync" ToStringFunc="@(id => OptionLabel(id, _architectures))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
+    <MudAutocomplete T="Guid?" Label="Wellbore architecture" @bind-Value="_architectureID" @bind-Value:after="MarkChoicesEdited" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchArchitecturesAsync" ToStringFunc="@(id => OptionLabel(id, _architectures))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
 
-    <MudAutocomplete T="Guid?" Label="Trajectory" @bind-Value="_trajectoryID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchTrajectoriesAsync" ToStringFunc="@(id => OptionLabel(id, _trajectories))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
+    <MudAutocomplete T="Guid?" Label="Trajectory" @bind-Value="_trajectoryID" @bind-Value:after="MarkChoicesEdited" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchTrajectoriesAsync" ToStringFunc="@(id => OptionLabel(id, _trajectories))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
 
-    <MudAutocomplete T="Guid?" Label="Drill-string" @bind-Value="_drillStringID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchDrillStringsAsync" ToStringFunc="@(id => OptionLabel(id, _drillStrings))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
+    <MudAutocomplete T="Guid?" Label="Drill-string" @bind-Value="_drillStringID" @bind-Value:after="MarkChoicesEdited" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchDrillStringsAsync" ToStringFunc="@(id => OptionLabel(id, _drillStrings))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
     <MudButton Variant="Variant.Filled"
                Color="Color.Primary"
                Disabled="@(_selectedWellBore is null || _contextLoading || _contextLoadFailed)"
@@ -100,8 +105,8 @@
     protected override async Task OnInitializedAsync()
     {
         await InitializeAsync();
-        await ManageSignal();
-        await InitializeContextSelectionsAsync();
+        await RefreshBlackboardBindingsAsync();
+        _bindingMonitor = MonitorBlackboardAsync(_pageLifetime.Token);
         await InvokeAsync(() => { StateHasChanged(); });
     }
     private async Task InitializeAsync()
@@ -234,7 +239,7 @@
         return ok;
     }
 
-    protected async Task ManageSignal()
+    protected async Task ManageSignal(bool restoreChoices = true)
     {
         var client = DWISConnector.Instance.DWISClient;
         if (client?.Connected != true) return;
@@ -243,7 +248,7 @@
         _placeHolder = node;
         if (node.Count == 0 || node[0].Count == 0) return;
         var address = node[0][0];
-        if (client.ReadAnyVariables(out object[] values, (address.NameSpace, address.ID))
+        if (restoreChoices && client.ReadAnyVariables(out object[] values, (address.NameSpace, address.ID))
             && values.FirstOrDefault() is string json && !string.IsNullOrWhiteSpace(json))
         {
             try
@@ -260,6 +265,7 @@
     }
     private Task OnFieldChanged(DWIS.ContextualData.WellBoreSelector.ModelShared.Field? field)
     {
+        MarkChoicesEdited();
         _selectedField = field;
         _selectedCluster = null;
         _selectedWell = null;
@@ -269,6 +275,7 @@
 
     private Task OnClusterChanged(Cluster? cluster)
     {
+        MarkChoicesEdited();
         _selectedCluster = cluster;
         _selectedWell = null;
         _selectedWellBore = null;
@@ -277,6 +284,7 @@
 
     private Task OnWellChanged(Well? well)
     {
+        MarkChoicesEdited();
         _selectedWell = well;
         _selectedWellBore = null;
         return Task.CompletedTask;
@@ -284,6 +292,7 @@
 
     private async Task OnWellBoreChanged(WellBore? wellBore)
     {
+        MarkChoicesEdited();
         _selectedWellBore = wellBore;
         await LoadContextChoicesAsync();
     }

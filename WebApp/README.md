@@ -30,7 +30,7 @@ The web application is then accessible here: http://localhost:5001/WellBoreSelec
 
 ## DWIS package versions
 This host uses DWIS.RigOS.Common.Model 1.0.7 and explicitly pins
-DWIS.Client.ReferenceImplementation.OPCFoundation 2.2.54. Restore packages from nuget.org.
+DWIS.Client.ReferenceImplementation.OPCFoundation 2.2.55. Restore packages from nuget.org.
 
 ## OSDC package versions
 DrillingProperties 10.2.11 is supplied by Common Model. General.Statistics is explicitly pinned
@@ -75,3 +75,13 @@ display only their names and also match their UUID when searching. Searches run 
 external services. Choose a listed result; arbitrary text is not a published selection.
 Use Apply selections to publish the selected UUIDs. Existing field/cluster/well filters apply
 before text filtering, including the field restriction on single wells.
+
+## Blackboard reconnection
+The host retries an unavailable or disconnected Blackboard every five seconds and disposes
+replaced sessions. Each open selector page retries registration of the wellbore and three
+context-selection signals, including after reconnect. A warning remains visible until all
+bindings are ready. No selections are published automatically. Unsaved dropdown choices
+survive connection loss; Blackboard selections are restored only on the first successful
+binding when the user has not already edited the page. Closing the page cancels its monitor.
+Regression tests cover startup failures, lost connections, disposal, registration failures,
+re-binding and preservation of unsaved choices.

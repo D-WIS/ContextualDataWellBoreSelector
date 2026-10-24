@@ -1,9 +1,8 @@
-﻿using DWIS.API.DTO;
+using DWIS.API.DTO;
 using DWIS.Client.ReferenceImplementation;
 using DWIS.Client.ReferenceImplementation.OPCFoundation;
 using DWIS.ContextualData.WellBoreSelector.WebApp;
 using Microsoft.Extensions.Logging;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebApp
 {
@@ -13,28 +12,81 @@ namespace WebApp
 
         public static DWISConnector Instance => _instance.Value;
 
-        public IOPCUADWISClient? DWISClient { get; set; } = null;
+        private volatile IOPCUADWISClient? _client;
+        public IOPCUADWISClient? DWISClient { get => _client; set => _client = value; }
 
 
-        public DWISConnector()
+        public DWISConnector() : this(() => new DWISClientOPCF(new DefaultDWISClientConfiguration
         {
+            UseWebAPI = false,
+            ServerAddress = Configuration.Instance.GeneralBlackboard
+        }, null)) { }
+
+        private readonly Func<IOPCUADWISClient> _openClient;
+        internal ILogger? ConnectionLogger { get; set; }
+        private readonly TimeSpan _retryInterval;
+
+        public DWISConnector(Func<IOPCUADWISClient> openClient, ILogger? logger = null,
+            TimeSpan? retryInterval = null)
+        {
+            _openClient = openClient;
+            ConnectionLogger = logger;
+            _retryInterval = retryInterval ?? TimeSpan.FromSeconds(5);
         }
 
-        public void ConnectToBlackboard(ILogger<DWISClientOPCF>? loggerDWISClient)
+        public async Task RunAsync(CancellationToken stoppingToken)
         {
             try
             {
-                if (Configuration.Instance != null && !string.IsNullOrEmpty(Configuration.Instance.GeneralBlackboard))
+                while (!stoppingToken.IsCancellationRequested)
                 {
-                    DefaultDWISClientConfiguration defaultDWISClientConfiguration = new DefaultDWISClientConfiguration();
-                    defaultDWISClientConfiguration.UseWebAPI = false;
-                    defaultDWISClientConfiguration.ServerAddress = Configuration.Instance.GeneralBlackboard;
-                    DWISClient = new DWISClientOPCF(defaultDWISClientConfiguration, loggerDWISClient);
+                    if (!IsHealthy(DWISClient))
+                    {
+                        var previous = DWISClient;
+                        DWISClient = null;
+                        (previous as IDisposable)?.Dispose();
+                        IOPCUADWISClient? candidate = null;
+                        try
+                        {
+                            candidate = _openClient();
+                            if (candidate.Connected)
+                            {
+                                DWISClient = candidate;
+                                candidate = null;
+                                ConnectionLogger?.LogInformation("Connected to the Blackboard; selection bindings will be refreshed");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ConnectionLogger?.LogWarning(ex, "Cannot connect to the Blackboard; retrying in {Seconds} seconds", _retryInterval.TotalSeconds);
+                        }
+                        finally { (candidate as IDisposable)?.Dispose(); }
+                    }
+                    await Task.Delay(_retryInterval, stoppingToken);
                 }
             }
-            catch (Exception e)
+            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested) { }
+            finally
             {
-                loggerDWISClient?.LogError(e.ToString());
+                var client = DWISClient;
+                DWISClient = null;
+                (client as IDisposable)?.Dispose();
+            }
+        }
+
+        private bool IsHealthy(IOPCUADWISClient? client)
+        {
+            if (client?.Connected != true) return false;
+            try
+            {
+                // A lost channel may still report Connected until its next request fails.
+                return client is not DWISClientOPCF opc ||
+                    opc.ReadValue(Opc.Ua.VariableIds.Server_ServerStatus_CurrentTime)?.Value is DateTime;
+            }
+            catch (Exception ex)
+            {
+                ConnectionLogger?.LogWarning(ex, "Blackboard health check failed; reconnecting");
+                return false;
             }
         }
 
