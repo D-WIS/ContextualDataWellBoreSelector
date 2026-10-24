@@ -10,20 +10,11 @@
         @if (Fields != null)
         {
             <MudItem xs="12" sm="6" md="3">
-                <MudSelect T="DWIS.ContextualData.WellBoreSelector.ModelShared.Field"
+                <MudAutocomplete T="DWIS.ContextualData.WellBoreSelector.ModelShared.Field"
                            Label="Field"
                            Value="@_selectedField"
                            ValueChanged="@(EventCallback.Factory.Create<DWIS.ContextualData.WellBoreSelector.ModelShared.Field?>(this, OnFieldChanged))"
-                           Dense="true"
-                           ToStringFunc="@(s => s?.Name)">
-                    @foreach (var fieldKPV in Fields)
-                    {
-                        if (fieldKPV.Key != Guid.Empty && fieldKPV.Value != null && !string.IsNullOrEmpty(fieldKPV.Value.Name))
-                        {
-                            <MudSelectItem Value="@fieldKPV.Value">@fieldKPV.Value.Name</MudSelectItem>
-                        }
-                    }
-                </MudSelect>
+                           Dense="true" ToStringFunc="@(s => s?.Name)" SearchFunc="SearchFieldsAsync" MinCharacters="0" MaxItems="@((int?)null)" Clearable="true" ResetValueOnEmptyText="true" CoerceValue="false" />
             </MudItem>
         }
         else
@@ -33,17 +24,11 @@
         @if (Clusters != null && _selectedField != null)
         {
             <MudItem xs="12" sm="6" md="3">
-                <MudSelect T="Cluster"
+                <MudAutocomplete T="Cluster"
                            Label="Cluster"
                            Value="@_selectedCluster"
                            ValueChanged="@(EventCallback.Factory.Create<Cluster?>(this, OnClusterChanged))"
-                           Dense="true"
-                           ToStringFunc="@(s => s?.Name)">
-                    @foreach (var clusterKVP in Clusters.Where(x => (x.Value != null && x.Value.FieldID != null && _selectedField != null && _selectedField.MetaInfo != null && _selectedField.MetaInfo.ID == x.Value.FieldID && !x.Value.IsSingleWell)))
-                    {
-                        <MudSelectItem Value="@clusterKVP.Value">@clusterKVP.Value.Name</MudSelectItem>
-                    }
-                </MudSelect>
+                           Dense="true" ToStringFunc="@(s => s?.Name)" SearchFunc="SearchClustersAsync" MinCharacters="0" MaxItems="@((int?)null)" Clearable="true" ResetValueOnEmptyText="true" CoerceValue="false" />
             </MudItem>
         }
         else
@@ -53,17 +38,11 @@
         @if (Wells != null)
         {
             <MudItem xs="12" sm="6" md="3">
-                <MudSelect T="Well"
+                <MudAutocomplete T="Well"
                            Label="Well"
                            Value="@_selectedWell"
                            ValueChanged="@(EventCallback.Factory.Create<Well?>(this, OnWellChanged))"
-                           Dense="true"
-                           ToStringFunc="@(s => s?.Name)">
-                    @foreach (var wellKVP in Wells.Where(x => WellSelectionFilter.IsVisible(x.Value, _selectedField?.MetaInfo?.ID, _selectedCluster?.MetaInfo?.ID, Clusters)))
-                    {
-                        <MudSelectItem Value="@wellKVP.Value">@wellKVP.Value.Name</MudSelectItem>
-                    }
-                </MudSelect>
+                           Dense="true" ToStringFunc="@(s => s?.Name)" SearchFunc="SearchWellsAsync" MinCharacters="0" MaxItems="@((int?)null)" Clearable="true" ResetValueOnEmptyText="true" CoerceValue="false" />
             </MudItem>
         }
         else
@@ -73,17 +52,11 @@
         @if (WellBores != null && _selectedWell != null)
         {
             <MudItem xs="12" sm="6" md="3">
-                <MudSelect T="WellBore"
+                <MudAutocomplete T="WellBore"
                            Label="Wellbore"
                            Value="@_selectedWellBore"
                            ValueChanged="@(EventCallback.Factory.Create<WellBore?>(this, OnWellBoreChanged))"
-                           Dense="true"
-                           ToStringFunc="@(s => s?.Name)">
-                    @foreach (var wellBoreKVP in WellBores.Where(x => (x.Value != null && x.Value.WellID != null && _selectedWell != null && _selectedWell.MetaInfo != null && _selectedWell.MetaInfo.ID == x.Value.WellID)))
-                    {
-                        <MudSelectItem Value="@wellBoreKVP.Value">@wellBoreKVP.Value.Name</MudSelectItem>
-                    }
-                </MudSelect>
+                           Dense="true" ToStringFunc="@(s => s?.Name)" SearchFunc="SearchWellBoresAsync" MinCharacters="0" MaxItems="@((int?)null)" Clearable="true" ResetValueOnEmptyText="true" CoerceValue="false" />
             </MudItem>
         }
         else
@@ -92,26 +65,11 @@
         }
     </MudGrid>
 
-    <MudSelect T="Guid?" Label="Wellbore architecture" @bind-Value="_architectureID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3">
-        @foreach (var option in _architectures)
-        {
-            <MudSelectItem T="Guid?" Value="@((Guid?)option.ID)">@option.Name (@option.ID.ToString().Substring(0, 8))</MudSelectItem>
-        }
-    </MudSelect>
+    <MudAutocomplete T="Guid?" Label="Wellbore architecture" @bind-Value="_architectureID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchArchitecturesAsync" ToStringFunc="@(id => OptionLabel(id, _architectures))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
 
-    <MudSelect T="Guid?" Label="Trajectory" @bind-Value="_trajectoryID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3">
-        @foreach (var option in _trajectories)
-        {
-            <MudSelectItem T="Guid?" Value="@((Guid?)option.ID)">@option.Name (@option.ID.ToString().Substring(0, 8))</MudSelectItem>
-        }
-    </MudSelect>
+    <MudAutocomplete T="Guid?" Label="Trajectory" @bind-Value="_trajectoryID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchTrajectoriesAsync" ToStringFunc="@(id => OptionLabel(id, _trajectories))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
 
-    <MudSelect T="Guid?" Label="Drill-string" @bind-Value="_drillStringID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3">
-        @foreach (var option in _drillStrings)
-        {
-            <MudSelectItem T="Guid?" Value="@((Guid?)option.ID)">@option.Name (@option.ID.ToString().Substring(0, 8))</MudSelectItem>
-        }
-    </MudSelect>
+    <MudAutocomplete T="Guid?" Label="Drill-string" @bind-Value="_drillStringID" Disabled="@(_selectedWellBore is null || _contextLoading)" Clearable="true" Class="my-3" SearchFunc="SearchDrillStringsAsync" ToStringFunc="@(id => OptionLabel(id, _drillStrings))" MinCharacters="0" MaxItems="@((int?)null)" ResetValueOnEmptyText="true" CoerceValue="false" />
     <MudButton Variant="Variant.Filled"
                Color="Color.Primary"
                Disabled="@(_selectedWellBore is null || _contextLoading || _contextLoadFailed)"

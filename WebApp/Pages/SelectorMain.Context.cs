@@ -54,7 +54,7 @@ public partial class SelectorMain
         int version = ++_contextLoadVersion;
         _architectureID = _trajectoryID = _drillStringID = null;
         _architectures.Clear(); _trajectories.Clear(); _drillStrings.Clear();
-        if (_selectedWellBore?.MetaInfo is null) return;
+        if (_selectedWellBore?.MetaInfo is null) { _contextLoading = false; _contextLoadFailed = false; return; }
         _contextLoading = true;
         _contextLoadFailed = false;
         try
