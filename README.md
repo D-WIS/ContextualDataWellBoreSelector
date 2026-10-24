@@ -70,7 +70,7 @@ and wells with unknown cluster ownership are omitted. WebApp.Tests covers these 
 ## Searchable selectors
 All seven selectors accept typed, case-insensitive substring searches. Empty text shows all
 choices permitted by the current hierarchy. Architecture, trajectory and drill-string choices
-also match their UUID. Searches run against already loaded choices; typing does not call
+display only their names and also match their UUID when searching. Searches run against already loaded choices; typing does not call
 external services. Choose a listed result; arbitrary text is not a published selection.
 Use Apply selections to publish the selected UUIDs. Existing field/cluster/well filters apply
 before text filtering, including the field restriction on single wells.

@@ -25,7 +25,7 @@ public partial class SelectorMain
 
     private static string OptionLabel(Guid? id, List<ContextOption> options) =>
         id is null ? "" : options.FirstOrDefault(x => x.ID == id) is ContextOption option
-            ? $"{option.Name} ({option.ID.ToString()[..8]})" : "";
+            ? option.Name : "";
 
     private static Task<IEnumerable<Guid?>> SearchOptionsAsync(List<ContextOption> options, string text, CancellationToken token) =>
         Search(options.Select(x => (Guid?)x.ID), text, id =>
